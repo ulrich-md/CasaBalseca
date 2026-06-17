@@ -1,0 +1,17 @@
+<svg width="120" height="156" viewBox="0 0 120 156" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- REEMPLAZAR: logo oficial. Monograma CASA BALSECA recreado a partir de la referencia de marca. -->
+  <rect width="120" height="156" fill="#3E1117"/>
+  <g stroke="#B0852E" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <path d="M26 138 L26 58 L46 82 L60 60 L74 82 L94 58 L94 138" />
+    <path d="M18 138 L40 138" />
+    <path d="M80 138 L102 138" />
+    <path d="M44 98 L60 80 L76 98" />
+    <path d="M42 114 L60 96 L78 114" />
+    <path d="M52 138 L52 124 L60 116 L68 124 L68 138" />
+  </g>
+  <g fill="#B0852E">
+    <circle cx="36" cy="16" r="5" />
+    <circle cx="60" cy="16" r="5" />
+    <circle cx="84" cy="16" r="5" />
+  </g>
+</svg>
