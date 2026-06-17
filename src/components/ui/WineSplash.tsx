@@ -54,27 +54,34 @@ export function WineSplash({ className }: WineSplashProps) {
               : { duration: 2.4, ease: [0.22, 1, 0.36, 1], delay: 0.5 }
           }
         />
-        {/* Superficie con ripple sutil */}
+        {/* Superficie del vino, sube con el nivel */}
         <motion.ellipse
           cx="100"
           rx="52"
           ry="5"
           fill="#7a1f24"
           initial={reduced ? false : { cy: bowlBottom }}
-          animate={
-            reduced
-              ? { cy: fillTop }
-              : { cy: fillTop, rx: [52, 53.5, 52] }
-          }
+          animate={{ cy: fillTop }}
           transition={
-            reduced
-              ? { duration: 0 }
-              : {
-                  cy: { duration: 2.4, ease: [0.22, 1, 0.36, 1], delay: 0.5 },
-                  rx: { duration: 4, repeat: Infinity, ease: 'easeInOut', delay: 3 },
-                }
+            reduced ? { duration: 0 } : { duration: 2.4, ease: [0.22, 1, 0.36, 1], delay: 0.5 }
           }
         />
+        {/* Ripple sutil en loop (transform, no toca atributos del SVG) */}
+        {!reduced && (
+          <motion.ellipse
+            cx="100"
+            cy={fillTop}
+            rx="52"
+            ry="5"
+            fill="none"
+            stroke="rgba(255,255,255,0.12)"
+            strokeWidth="1"
+            style={{ transformOrigin: '100px ' + fillTop + 'px' }}
+            initial={{ scaleX: 1, opacity: 0 }}
+            animate={{ scaleX: [1, 1.03, 1], opacity: [0, 0.5, 0] }}
+            transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut', delay: 3 }}
+          />
+        )}
       </g>
 
       {/* Chorro / derrame que se dibuja desde arriba */}
