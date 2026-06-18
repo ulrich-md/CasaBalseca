@@ -28,7 +28,7 @@ const lineMask: Variants = {
   show: { y: '0%', transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] } },
 };
 
-export function Hero() {
+export function Hero({ ready = true }: { ready?: boolean }) {
   const sectionRef = useRef<HTMLElement>(null);
   const ghostRef = useRef<HTMLDivElement>(null);
   const bottleRef = useRef<HTMLDivElement>(null);
@@ -84,8 +84,8 @@ export function Hero() {
         className="pointer-events-none absolute left-1/2 top-[52%] -z-20 w-[130%] -translate-x-1/2 -translate-y-1/2 select-none text-center"
       >
         <motion.span
-          initial={reduced ? false : { opacity: 0, scale: 1.08 }}
-          animate={{ opacity: 1, scale: 1 }}
+          initial={{ opacity: 0, scale: 1.08 }}
+          animate={ready ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 1.08 }}
           transition={{ duration: 1.4, ease: powerEase }}
           className="block font-display text-[26vw] font-medium leading-none tracking-[-0.045em] text-burgundy/[0.08] md:text-[22vw] lg:text-[19rem]"
         >
@@ -111,7 +111,7 @@ export function Hero() {
       <motion.div
         variants={container}
         initial="hidden"
-        animate="show"
+        animate={ready ? 'show' : 'hidden'}
         className="relative z-10 flex w-full max-w-shell flex-1 flex-col items-center"
       >
         <motion.p variants={fadeUpChild} className="eyebrow mb-5 text-center">
@@ -142,24 +142,25 @@ export function Hero() {
           {/* Spotlight cálido que crece al cargar */}
           <motion.div
             aria-hidden="true"
-            initial={reduced ? false : { opacity: 0, scale: 0.6 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1.6, ease: powerEase, delay: 0.2 }}
+            initial={{ opacity: 0, scale: 0.6 }}
+            animate={ready ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.6 }}
+            transition={{ duration: 1.6, ease: powerEase, delay: 0.1 }}
             className="pointer-events-none absolute bottom-0 left-1/2 -z-10 h-[42vh] w-[42vh] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(176,133,46,0.28),rgba(166,68,46,0.12)_45%,transparent_70%)] blur-2xl"
           />
 
           {/* Botella + reflejo */}
           <motion.div
             ref={bottleRef}
-            initial={reduced ? false : { opacity: 0, y: 36 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: powerEase, delay: 0.35 }}
+            initial={{ opacity: 0, y: 36 }}
+            animate={ready ? { opacity: 1, y: 0 } : { opacity: 0, y: 36 }}
+            transition={{ duration: 1, ease: powerEase, delay: 0.15 }}
             className="relative flex flex-col items-center"
           >
             <div className="relative">
               {/* Splash de vino al cargar — estallido detrás de la botella */}
               <EntrySplash
                 variant="back"
+                play={ready}
                 className="absolute left-1/2 top-1/2 z-0 aspect-square h-[150%] -translate-x-1/2 -translate-y-1/2"
               />
               {bottlePng ? (
@@ -190,6 +191,7 @@ export function Hero() {
               {/* Gotas en primer plano — delante de la botella */}
               <EntrySplash
                 variant="front"
+                play={ready}
                 className="pointer-events-none absolute left-1/2 top-1/2 z-20 aspect-square h-[150%] -translate-x-1/2 -translate-y-1/2"
               />
             </div>
