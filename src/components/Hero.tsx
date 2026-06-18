@@ -157,8 +157,11 @@ export function Hero() {
             className="relative flex flex-col items-center"
           >
             <div className="relative">
-              {/* Splash de vino al cargar — corona en la base, detrás de la botella */}
-              <EntrySplash className="absolute inset-0 z-0" />
+              {/* Splash de vino al cargar — estallido detrás de la botella */}
+              <EntrySplash
+                variant="back"
+                className="absolute left-1/2 top-1/2 z-0 aspect-square h-[150%] -translate-x-1/2 -translate-y-1/2"
+              />
               {bottlePng ? (
                 <picture>
                   <source srcSet={BOTTLE_WEBP} type="image/webp" />
@@ -184,6 +187,11 @@ export function Hero() {
                   <span className="absolute inset-y-0 -left-1/3 w-1/3 -skew-x-12 bg-gradient-to-r from-transparent via-white/35 to-transparent animate-sheen" />
                 </span>
               )}
+              {/* Gotas en primer plano — delante de la botella */}
+              <EntrySplash
+                variant="front"
+                className="pointer-events-none absolute left-1/2 top-1/2 z-20 aspect-square h-[150%] -translate-x-1/2 -translate-y-1/2"
+              />
             </div>
 
             {/* Reflejo en el suelo (solo con la foto real) */}
