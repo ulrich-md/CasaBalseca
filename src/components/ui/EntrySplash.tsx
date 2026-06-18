@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { usePrefersReducedMotion } from '../../lib/usePrefersReducedMotion';
 
@@ -57,10 +57,26 @@ export function EntrySplash({
   hidden = false,
 }: EntrySplashProps) {
   const reduced = usePrefersReducedMotion();
+  const videoRef = useRef<HTMLVideoElement>(null);
   const [videoOk, setVideoOk] = useState(false);
   const [ended, setEnded] = useState(false);
   const isBack = variant === 'back';
   const list = isBack ? BACK_DROPLETS : FRONT_DROPLETS;
+
+  const markReady = () => {
+    if (reduced) return;
+    setVideoOk(true);
+    onVideoChange?.(true);
+  };
+
+  // Algunos navegadores no arrancan el autoplay solos: lo forzamos (silenciado).
+  useEffect(() => {
+    if (reduced || !isBack) return;
+    const v = videoRef.current;
+    if (!v) return;
+    const t = setTimeout(() => v.play().catch(() => {}), 60);
+    return () => clearTimeout(t);
+  }, [reduced, isBack]);
 
   if (!isBack && hidden) return null;
 
@@ -70,22 +86,22 @@ export function EntrySplash({
           vez y se desvanece, dejando el hero limpio. Fondo blanco/alfa integrado. */}
       {isBack && (
         <video
+          ref={videoRef}
           className="pointer-events-none absolute bottom-0 left-1/2 h-[min(32vh,22rem)] w-[min(52vw,40rem)] -translate-x-1/2 object-cover [object-position:50%_66%] mix-blend-multiply [mask-image:radial-gradient(70%_88%_at_50%_54%,#000_40%,transparent_100%)] [-webkit-mask-image:radial-gradient(70%_88%_at_50%_54%,#000_40%,transparent_100%)]"
           style={{ opacity: videoOk && !ended ? 1 : 0, transition: 'opacity 800ms ease' }}
           autoPlay={!reduced}
           muted
           playsInline
           preload={reduced ? 'none' : 'auto'}
-          onCanPlay={() => {
-            if (reduced) return;
-            setVideoOk(true);
-            onVideoChange?.(true);
-          }}
+          onLoadedData={markReady}
+          onCanPlay={markReady}
+          onPlaying={markReady}
           onEnded={() => setEnded(true)}
           onError={() => setVideoOk(false)}
         >
-          <source src="/assets/wine-splash.webm" type="video/webm" />
+          {/* MP4 (H.264) primero: universal. WebM con alfa como alternativa. */}
           <source src="/assets/wine-splash.mp4" type="video/mp4" />
+          <source src="/assets/wine-splash.webm" type='video/webm; codecs="vp9"' />
         </video>
       )}
 
