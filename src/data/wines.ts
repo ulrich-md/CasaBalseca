@@ -10,7 +10,13 @@ export type Wine = {
   tasting: string;
   pairings: string[];
   note: string;
+  /** Ficha / compra en MOG Selections. */
+  url: string;
 };
+
+/** Página de producto de la Crianza en MOG Selections (también usada en "Dónde comprar"). */
+export const CRIANZA_URL =
+  'https://www.mogselections.com/product-page/casa-balseca-crianza';
 
 /**
  * Datos REALES de etiqueta. No se inventan precios, premios ni puntajes.
@@ -31,6 +37,7 @@ export const wines: Wine[] = [
       'Potente y equilibrado. Fruta negra madura, roble y especias sobre un fondo de taninos pulidos. Crianza de 24 meses de guarda, con un mínimo de 12 en barrica de roble.',
     pairings: ['Res', 'Caza', 'Cordero'],
     note: 'Edición limitada y numerada',
+    url: CRIANZA_URL,
   },
   {
     id: 'roble',
@@ -45,5 +52,6 @@ export const wines: Wine[] = [
       'Joven y expresivo. Fruta roja vibrante y un paso por roble que aporta estructura sin pesar. Directo, fresco y de trago largo.',
     pairings: ['Tablas', 'Pastas', 'Aves'],
     note: 'Edición limitada y numerada',
+    url: 'https://www.mogselections.com/product-page/casa-balseca-roble',
   },
 ];

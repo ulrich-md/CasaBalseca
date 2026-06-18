@@ -1,6 +1,12 @@
 import { Reveal, RevealGroup, RevealItem } from './ui/Reveal';
-import { EditorialImage } from './ui/EditorialImage';
 import { BerberPattern } from './ui/BerberPattern';
+
+// Fotos reales de marca para el collage de "La casa".
+const PHOTOS = {
+  cinematico: '/assets/vino-cinematico.webp',
+  uva: '/assets/botellas-uva.webp',
+  tarjeta: '/assets/tarjeta.webp',
+};
 
 export function TheHouse() {
   return (
@@ -44,30 +50,33 @@ export function TheHouse() {
           </Reveal>
         </div>
 
-        {/* Collage de 3 imágenes */}
+        {/* Collage de 3 fotos reales */}
         <RevealGroup className="order-1 grid grid-cols-2 gap-4 lg:order-2 lg:gap-5">
-          <RevealItem className="col-span-2">
-            {/* // REEMPLAZAR: foto real — viñedo en Ribera del Duero */}
-            <EditorialImage
-              scene="vinedo"
-              alt="Viñedo de Tempranillo en Ribera del Duero al atardecer"
-              className="aspect-[16/10] w-full rounded-[4px] shadow-[0_30px_60px_-40px_rgba(62,17,23,0.5)]"
+          <RevealItem className="col-span-2 overflow-hidden rounded-[4px] ring-1 ring-ink/10 shadow-[0_30px_60px_-40px_rgba(62,17,23,0.55)]">
+            <img
+              src={PHOTOS.cinematico}
+              alt="Botellas de Casa Balseca Crianza con el sello de la marca, Ribera del Duero"
+              loading="lazy"
+              decoding="async"
+              className="aspect-[16/10] w-full object-cover transition-transform duration-[900ms] ease-power4 hover:scale-[1.04]"
             />
           </RevealItem>
-          <RevealItem>
-            {/* // REEMPLAZAR: foto real — barricas de roble */}
-            <EditorialImage
-              scene="barricas"
-              alt="Barricas de roble en la sala de crianza"
-              className="aspect-[3/4] w-full rounded-[4px] shadow-[0_30px_60px_-40px_rgba(62,17,23,0.5)]"
+          <RevealItem className="overflow-hidden rounded-[4px] ring-1 ring-ink/10 shadow-[0_30px_60px_-40px_rgba(62,17,23,0.55)]">
+            <img
+              src={PHOTOS.uva}
+              alt="Casa Balseca Crianza y Roble junto a racimos de uva"
+              loading="lazy"
+              decoding="async"
+              className="aspect-square w-full object-cover transition-transform duration-[900ms] ease-power4 hover:scale-[1.04]"
             />
           </RevealItem>
-          <RevealItem className="flex flex-col justify-end">
-            {/* // REEMPLAZAR: foto real — copa de vino tinto */}
-            <EditorialImage
-              scene="copa"
-              alt="Copa de vino tinto Casa Balseca a contraluz"
-              className="aspect-[3/4] w-full rounded-[4px] shadow-[0_30px_60px_-40px_rgba(62,17,23,0.5)]"
+          <RevealItem className="overflow-hidden rounded-[4px] ring-1 ring-ink/10 shadow-[0_30px_60px_-40px_rgba(62,17,23,0.55)]">
+            <img
+              src={PHOTOS.tarjeta}
+              alt="Tarjeta de marca Casa Balseca con el patrón bereber y el monograma dorado"
+              loading="lazy"
+              decoding="async"
+              className="aspect-square w-full object-cover transition-transform duration-[900ms] ease-power4 hover:scale-[1.04]"
             />
           </RevealItem>
         </RevealGroup>

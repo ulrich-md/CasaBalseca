@@ -1,6 +1,7 @@
 import { Reveal } from './ui/Reveal';
 import { Monogram } from './ui/Monogram';
 import { BerberPattern } from './ui/BerberPattern';
+import { CRIANZA_URL } from '../data/wines';
 
 export function WhereToBuy() {
   return (
@@ -35,8 +36,12 @@ export function WhereToBuy() {
 
             <Reveal delay={0.22}>
               <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
-                {/* href="#" — outbound placeholder, sin e-commerce */}
-                <a href="#" className="btn btn-terra w-full sm:w-auto">
+                <a
+                  href={CRIANZA_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-terra w-full sm:w-auto"
+                >
                   Comprar en MOG Selections
                 </a>
                 <a
