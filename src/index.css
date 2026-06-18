@@ -104,6 +104,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
     gap: 0.6rem;
     font-family: 'Inter', sans-serif;
     font-size: 0.8125rem;

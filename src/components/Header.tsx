@@ -13,12 +13,31 @@ const NAV = [
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [active, setActive] = useState('inicio');
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  // ScrollSpy: marca la sección activa en la nav
+  useEffect(() => {
+    const ids = ['inicio', 'los-vinos', 'la-casa', 'el-proceso', 'donde-comprar'];
+    const els = ids
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => el !== null);
+    const obs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) setActive(e.target.id);
+        });
+      },
+      { rootMargin: '-45% 0px -50% 0px', threshold: 0 },
+    );
+    els.forEach((el) => obs.observe(el));
+    return () => obs.disconnect();
   }, []);
 
   // Bloquea el scroll del fondo con el menú móvil abierto
@@ -56,17 +75,27 @@ export function Header() {
 
         {/* Nav centro (desktop) */}
         <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-9 lg:flex">
-          {NAV.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              onClick={(e) => onNavClick(e, item.href)}
-              className="group relative text-[0.82rem] font-medium uppercase tracking-[0.16em] text-ink/75 transition-colors hover:text-ink"
-            >
-              {item.label}
-              <span className="absolute -bottom-1.5 left-0 h-px w-0 bg-terra transition-all duration-500 ease-power3 group-hover:w-full" />
-            </a>
-          ))}
+          {NAV.map((item) => {
+            const isActive = active === item.href.slice(1);
+            return (
+              <a
+                key={item.href}
+                href={item.href}
+                onClick={(e) => onNavClick(e, item.href)}
+                aria-current={isActive ? 'true' : undefined}
+                className={`group relative cursor-pointer text-[0.82rem] font-medium uppercase tracking-[0.16em] transition-colors hover:text-ink ${
+                  isActive ? 'text-ink' : 'text-ink/75'
+                }`}
+              >
+                {item.label}
+                <span
+                  className={`absolute -bottom-1.5 left-0 h-px bg-terra transition-all duration-500 ease-power3 group-hover:w-full ${
+                    isActive ? 'w-full' : 'w-0'
+                  }`}
+                />
+              </a>
+            );
+          })}
         </nav>
 
         {/* Sello MOG (desktop) */}
@@ -82,7 +111,7 @@ export function Header() {
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}
-          className="relative z-50 flex h-10 w-10 items-center justify-center lg:hidden"
+          className="relative z-50 flex h-11 w-11 cursor-pointer items-center justify-center lg:hidden"
           aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
           aria-expanded={open}
           aria-controls="mobile-menu"

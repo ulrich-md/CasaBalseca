@@ -39,7 +39,7 @@ export function CountUp({ to, duration = 1.6, className, format }: CountUpProps)
   // Por defecto sin separador de miles: los folios reales se imprimen "9210" / "17166".
   const display = format ? format(value) : String(value);
   return (
-    <span ref={ref} className={className}>
+    <span ref={ref} className={`tabular-nums ${className ?? ''}`}>
       {display}
     </span>
   );

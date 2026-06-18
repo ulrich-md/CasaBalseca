@@ -28,7 +28,7 @@ export function WhereToBuy() {
             </Reveal>
 
             <Reveal delay={0.16}>
-              <p className="mx-auto mt-5 max-w-md text-[0.97rem] leading-relaxed text-paper/70 text-pretty">
+              <p className="mx-auto mt-5 max-w-md text-base leading-relaxed text-paper/70 text-pretty">
                 Disponible a través de nuestro distribuidor. Sin carrito ni prisas:
                 te atendemos como se atiende a quien aprecia el detalle.
               </p>

@@ -102,7 +102,7 @@ export function Process() {
             </h2>
           </Reveal>
           <Reveal delay={0.12}>
-            <p className="mx-auto mt-5 max-w-md text-[0.97rem] leading-relaxed text-paper/65 text-pretty">
+            <p className="mx-auto mt-5 max-w-md text-base leading-relaxed text-paper/65 text-pretty">
               Cuatro tiempos sin atajos. El calendario lo marca el vino, no la prisa.
             </p>
           </Reveal>
@@ -144,7 +144,7 @@ export function Process() {
                   {step.n}
                 </span>
                 <h3 className="mt-1 font-display text-lg text-paper">{step.title}</h3>
-                <p className="mt-2 max-w-sm text-[0.88rem] leading-relaxed text-paper/60">
+                <p className="mt-2 max-w-sm text-base leading-relaxed text-paper/60">
                   {step.text}
                 </p>
               </Reveal>

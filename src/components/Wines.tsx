@@ -28,7 +28,7 @@ export function Wines() {
             </h2>
           </Reveal>
           <Reveal delay={0.12}>
-            <p className="mx-auto mt-5 max-w-lg text-[0.97rem] leading-relaxed text-muted text-pretty">
+            <p className="mx-auto mt-5 max-w-lg text-base leading-relaxed text-muted text-pretty">
               Cada botella se numera a mano y forma parte de una tirada finita.
               Lo que no se repite, se cuida.
             </p>
@@ -98,7 +98,7 @@ function WineCard({ wine }: { wine: Wine }) {
             {wine.designation}
           </span>
 
-          <p className="mt-5 text-[0.92rem] leading-relaxed text-muted text-pretty">
+          <p className="mt-5 text-base leading-relaxed text-muted text-pretty md:text-[0.92rem]">
             {wine.tasting}
           </p>
 

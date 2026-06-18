@@ -37,7 +37,7 @@ export function TheHouse() {
             </p>
           </Reveal>
           <Reveal delay={0.18}>
-            <p className="mt-5 max-w-lg text-[0.97rem] leading-relaxed text-muted text-pretty">
+            <p className="mt-5 max-w-lg text-base leading-relaxed text-muted text-pretty">
               Cada añada se embotella en una edición limitada y se numera una a
               una, porque lo que es finito merece quedar registrado. La casa la
               selecciona y distribuye{' '}
