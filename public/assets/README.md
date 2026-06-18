@@ -21,9 +21,3 @@
    componente SVG por una etiqueta `<img src="/assets/...">` cuando tengas el
    archivo real.
 
-## URLs originales (caducaron / bloqueadas en build)
-
-- Logo:     https://d2ol7oe51mr4n9.cloudfront.net/user_3De3RdMNZReGlmJYXAnYF4EkDFp/d411b161-c620-49a5-83db-511520323a6b.png
-- Botella A: https://d2ol7oe51mr4n9.cloudfront.net/user_3De3RdMNZReGlmJYXAnYF4EkDFp/07a62a03-5d14-471a-939d-50a09f63de2b.png
-- Botella B: https://d2ol7oe51mr4n9.cloudfront.net/user_3De3RdMNZReGlmJYXAnYF4EkDFp/6b214f13-4f03-48fb-a490-b935a1f10664.png
-- Barricas: https://d2ol7oe51mr4n9.cloudfront.net/user_3De3RdMNZReGlmJYXAnYF4EkDFp/403069bd-f916-44ad-a038-ed03d84106f4.png
