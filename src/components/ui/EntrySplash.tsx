@@ -6,6 +6,10 @@ type EntrySplashProps = {
   className?: string;
   /** 'back' = estallido detrás de la botella · 'front' = gotas en primer plano. */
   variant?: 'back' | 'front';
+  /** La capa 'back' avisa si el video de Higgsfield está activo. */
+  onVideoChange?: (active: boolean) => void;
+  /** La capa 'front' se oculta cuando el video toma el relevo (evita duplicar). */
+  hidden?: boolean;
 };
 
 const rad = (deg: number) => (deg * Math.PI) / 180;
@@ -46,24 +50,38 @@ const FRONT_DROPLETS = [
  * 'back' admite además un video de Higgsfield superpuesto (fondo blanco ->
  * multiply). Respeta prefers-reduced-motion.
  */
-export function EntrySplash({ className, variant = 'back' }: EntrySplashProps) {
+export function EntrySplash({
+  className,
+  variant = 'back',
+  onVideoChange,
+  hidden = false,
+}: EntrySplashProps) {
   const reduced = usePrefersReducedMotion();
   const [videoOk, setVideoOk] = useState(false);
+  const [ended, setEnded] = useState(false);
   const isBack = variant === 'back';
   const list = isBack ? BACK_DROPLETS : FRONT_DROPLETS;
 
+  if (!isBack && hidden) return null;
+
   return (
     <div className={className} aria-hidden="true">
-      {/* Video opcional (Higgsfield), solo en la capa de fondo. Fondo blanco -> multiply. */}
+      {/* Video opcional (Higgsfield), solo en la capa de fondo. Se reproduce una
+          vez y se desvanece, dejando el hero limpio. Fondo blanco/alfa integrado. */}
       {isBack && (
         <video
-          className="pointer-events-none absolute inset-0 h-full w-full object-cover mix-blend-multiply"
-          style={{ opacity: videoOk ? 1 : 0, transition: 'opacity 600ms ease' }}
-          autoPlay
+          className="pointer-events-none absolute inset-0 h-full w-full object-cover mix-blend-multiply [mask-image:radial-gradient(72%_64%_at_50%_52%,#000_48%,transparent_100%)] [-webkit-mask-image:radial-gradient(72%_64%_at_50%_52%,#000_48%,transparent_100%)]"
+          style={{ opacity: videoOk && !ended ? 1 : 0, transition: 'opacity 800ms ease' }}
+          autoPlay={!reduced}
           muted
           playsInline
-          preload="auto"
-          onCanPlay={() => !reduced && setVideoOk(true)}
+          preload={reduced ? 'none' : 'auto'}
+          onCanPlay={() => {
+            if (reduced) return;
+            setVideoOk(true);
+            onVideoChange?.(true);
+          }}
+          onEnded={() => setEnded(true)}
           onError={() => setVideoOk(false)}
         >
           <source src="/assets/wine-splash.webm" type="video/webm" />

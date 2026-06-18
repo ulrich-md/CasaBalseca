@@ -34,6 +34,7 @@ export function Hero() {
   const bottleRef = useRef<HTMLDivElement>(null);
   const reduced = usePrefersReducedMotion();
   const [bottlePng, setBottlePng] = useState(true);
+  const [videoActive, setVideoActive] = useState(false);
 
   // Parallax MUY sutil con scrub (palabra fantasma y botella a distinta velocidad)
   useEffect(() => {
@@ -160,6 +161,7 @@ export function Hero() {
               {/* Splash de vino al cargar — estallido detrás de la botella */}
               <EntrySplash
                 variant="back"
+                onVideoChange={setVideoActive}
                 className="absolute left-1/2 top-1/2 z-0 aspect-square h-[150%] -translate-x-1/2 -translate-y-1/2"
               />
               {bottlePng ? (
@@ -187,9 +189,10 @@ export function Hero() {
                   <span className="absolute inset-y-0 -left-1/3 w-1/3 -skew-x-12 bg-gradient-to-r from-transparent via-white/35 to-transparent animate-sheen" />
                 </span>
               )}
-              {/* Gotas en primer plano — delante de la botella */}
+              {/* Gotas en primer plano — delante de la botella (se ocultan con el video) */}
               <EntrySplash
                 variant="front"
+                hidden={videoActive}
                 className="pointer-events-none absolute left-1/2 top-1/2 z-20 aspect-square h-[150%] -translate-x-1/2 -translate-y-1/2"
               />
             </div>
