@@ -57,7 +57,7 @@ export function Hero({ ready = true }: { ready?: boolean }) {
     <section
       id="inicio"
       ref={sectionRef}
-      className="relative isolate flex min-h-[100svh] flex-col items-center overflow-hidden px-6 pb-6 pt-20 md:pt-24"
+      className="relative isolate flex min-h-[100svh] flex-col items-center overflow-hidden px-6 pb-10 pt-28 md:pt-32"
     >
       {/* Fondo: crema con gradientes cálidos + viñeta para dar profundidad */}
       <div className="pointer-events-none absolute inset-0 -z-30 bg-[radial-gradient(125%_90%_at_50%_-10%,#fcf7ee_0%,#f4ecdb_45%,#e9dcc4_100%)]" />
@@ -114,11 +114,11 @@ export function Hero({ ready = true }: { ready?: boolean }) {
         animate={ready ? 'show' : 'hidden'}
         className="relative z-10 flex w-full max-w-shell flex-1 flex-col items-center"
       >
-        <motion.p variants={fadeUpChild} className="eyebrow mb-3 text-center">
+        <motion.p variants={fadeUpChild} className="eyebrow mb-5 text-center">
           Casa Balseca · Edición limitada
         </motion.p>
 
-        <h1 className="text-center font-display text-[clamp(2.4rem,7vw,5.25rem)] font-light leading-[0.95] tracking-[-0.035em] text-ink">
+        <h1 className="text-center font-display text-[clamp(3rem,9.5vw,8rem)] font-light leading-[0.92] tracking-[-0.035em] text-ink">
           <span className="block overflow-hidden pb-[0.06em]">
             <motion.span variants={lineMask} className="block">Lo selecto</motion.span>
           </span>
@@ -131,7 +131,7 @@ export function Hero({ ready = true }: { ready?: boolean }) {
 
         <motion.p
           variants={fadeUpChild}
-          className="mt-4 max-w-xl text-center text-base leading-relaxed text-muted text-pretty"
+          className="mt-6 max-w-xl text-center text-base leading-relaxed text-muted text-pretty"
         >
           Vino tinto de Ribera del Duero en ediciones limitadas y numeradas.
           Tempranillo de guarda, criado con paciencia y firmado botella a botella.
@@ -172,13 +172,13 @@ export function Hero({ ready = true }: { ready?: boolean }) {
                     onError={() => setBottlePng(false)}
                     draggable={false}
                     fetchPriority="high"
-                    className="relative z-10 h-[clamp(12rem,30vh,20rem)] w-auto object-contain drop-shadow-[0_38px_50px_rgba(62,17,23,0.34)]"
+                    className="relative z-10 h-[clamp(20rem,54vh,34rem)] w-auto object-contain drop-shadow-[0_38px_50px_rgba(62,17,23,0.34)]"
                   />
                 </picture>
               ) : (
                 <Bottle
                   variant="crianza"
-                  className="relative z-10 h-[clamp(12rem,30vh,20rem)] w-auto drop-shadow-[0_38px_50px_rgba(62,17,23,0.34)]"
+                  className="relative z-10 h-[clamp(20rem,54vh,34rem)] w-auto drop-shadow-[0_38px_50px_rgba(62,17,23,0.34)]"
                   title="Casa Balseca Crianza 2014"
                 />
               )}
@@ -205,7 +205,7 @@ export function Hero({ ready = true }: { ready?: boolean }) {
                   alt=""
                   aria-hidden="true"
                   draggable={false}
-                  className="pointer-events-none -mt-1 h-[clamp(5rem,13vh,8rem)] w-auto -scale-y-100 object-contain object-top opacity-20 [mask-image:linear-gradient(to_bottom,rgba(0,0,0,0.5),transparent_70%)]"
+                  className="pointer-events-none -mt-1 h-[clamp(7rem,18vh,11rem)] w-auto -scale-y-100 object-contain object-top opacity-20 [mask-image:linear-gradient(to_bottom,rgba(0,0,0,0.5),transparent_70%)]"
                 />
               </picture>
             )}
@@ -213,7 +213,7 @@ export function Hero({ ready = true }: { ready?: boolean }) {
         </div>
 
         {/* CTAs */}
-        <motion.div variants={fadeUpChild} className="mt-4 flex flex-col items-center gap-3 sm:flex-row sm:gap-4">
+        <motion.div variants={fadeUpChild} className="mt-7 flex flex-col items-center gap-3 sm:flex-row sm:gap-4">
           <a
             href="#los-vinos"
             onClick={(e) => {
@@ -244,7 +244,7 @@ export function Hero({ ready = true }: { ready?: boolean }) {
           e.preventDefault();
           scrollToId('#los-vinos');
         }}
-        className="group relative z-10 mt-4 flex flex-col items-center gap-2"
+        className="group relative z-10 mt-6 flex flex-col items-center gap-2"
         aria-label="Desplázate para descubrir"
       >
         <span className="eyebrow !text-[0.625rem] text-muted/70">Scroll</span>
