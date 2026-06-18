@@ -162,7 +162,7 @@ export function Hero() {
               <EntrySplash
                 variant="back"
                 onVideoChange={setVideoActive}
-                className="absolute left-1/2 top-1/2 z-0 aspect-square h-[150%] -translate-x-1/2 -translate-y-1/2"
+                className="absolute inset-0 z-0"
               />
               {bottlePng ? (
                 <picture>
@@ -193,7 +193,7 @@ export function Hero() {
               <EntrySplash
                 variant="front"
                 hidden={videoActive}
-                className="pointer-events-none absolute left-1/2 top-1/2 z-20 aspect-square h-[150%] -translate-x-1/2 -translate-y-1/2"
+                className="pointer-events-none absolute inset-0 z-20"
               />
             </div>
 

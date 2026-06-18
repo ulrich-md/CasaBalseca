@@ -70,7 +70,7 @@ export function EntrySplash({
           vez y se desvanece, dejando el hero limpio. Fondo blanco/alfa integrado. */}
       {isBack && (
         <video
-          className="pointer-events-none absolute inset-0 h-full w-full object-cover mix-blend-multiply [mask-image:radial-gradient(72%_64%_at_50%_52%,#000_48%,transparent_100%)] [-webkit-mask-image:radial-gradient(72%_64%_at_50%_52%,#000_48%,transparent_100%)]"
+          className="pointer-events-none absolute bottom-0 left-1/2 h-[min(32vh,22rem)] w-[min(52vw,40rem)] -translate-x-1/2 object-cover [object-position:50%_66%] mix-blend-multiply [mask-image:radial-gradient(70%_88%_at_50%_54%,#000_40%,transparent_100%)] [-webkit-mask-image:radial-gradient(70%_88%_at_50%_54%,#000_40%,transparent_100%)]"
           style={{ opacity: videoOk && !ended ? 1 : 0, transition: 'opacity 800ms ease' }}
           autoPlay={!reduced}
           muted
@@ -91,7 +91,7 @@ export function EntrySplash({
 
       <svg
         viewBox="0 0 600 600"
-        className="absolute inset-0 h-full w-full"
+        className="absolute left-1/2 top-1/2 aspect-square h-[150%] -translate-x-1/2 -translate-y-1/2"
         style={{ opacity: videoOk ? 0 : 1, transition: 'opacity 400ms ease' }}
         xmlns="http://www.w3.org/2000/svg"
       >
