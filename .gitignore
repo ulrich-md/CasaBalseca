@@ -25,3 +25,6 @@ dist-ssr
 
 # TS build info
 *.tsbuildinfo
+
+# Skill de tooling de dev (UI/UX Pro Max), no es parte del sitio
+.claude/
