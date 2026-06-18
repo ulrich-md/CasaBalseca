@@ -4,55 +4,73 @@ import { usePrefersReducedMotion } from '../../lib/usePrefersReducedMotion';
 
 type EntrySplashProps = {
   className?: string;
+  /** 'back' = estallido detrás de la botella · 'front' = gotas en primer plano. */
+  variant?: 'back' | 'front';
 };
-
-// Vectores deterministas para las gotas que salen disparadas del centro.
-const DROPLETS = [
-  { a: -78, d: 210, r: 7 },
-  { a: -52, d: 250, r: 5 },
-  { a: -24, d: 280, r: 9 },
-  { a: -8, d: 240, r: 4 },
-  { a: 14, d: 285, r: 8 },
-  { a: 30, d: 235, r: 5 },
-  { a: 56, d: 255, r: 7 },
-  { a: 82, d: 205, r: 5 },
-  { a: 110, d: 180, r: 4 },
-  { a: -120, d: 175, r: 4 },
-  { a: 160, d: 150, r: 6 },
-  { a: -160, d: 150, r: 6 },
-];
 
 const rad = (deg: number) => (deg * Math.PI) / 180;
 
+// Gotas que salen disparadas del centro (radial, sesgado a los lados/arriba).
+const BACK_DROPLETS = [
+  { a: -110, d: 360, r: 10 },
+  { a: -90, d: 320, r: 7 },
+  { a: -68, d: 300, r: 6 },
+  { a: -135, d: 300, r: 7 },
+  { a: -50, d: 250, r: 5 },
+  { a: -160, d: 250, r: 6 },
+  { a: 110, d: 360, r: 10 },
+  { a: 90, d: 320, r: 7 },
+  { a: 68, d: 300, r: 6 },
+  { a: 135, d: 300, r: 7 },
+  { a: 50, d: 250, r: 5 },
+  { a: 160, d: 250, r: 6 },
+  { a: -30, d: 200, r: 4 },
+  { a: 30, d: 200, r: 4 },
+];
+
+const FRONT_DROPLETS = [
+  { a: -100, d: 320, r: 9 },
+  { a: -120, d: 270, r: 6 },
+  { a: -78, d: 240, r: 5 },
+  { a: 100, d: 320, r: 9 },
+  { a: 120, d: 270, r: 6 },
+  { a: 78, d: 240, r: 5 },
+  { a: -150, d: 210, r: 5 },
+  { a: 150, d: 210, r: 5 },
+];
+
 /**
- * Splash de vino al cargar la página. Estalla detrás de la botella y se asienta
- * en un charco sutil. 100% en código (SVG + Framer Motion): nítido, ligero y
- * transparente. Si existe /assets/wine-splash.(webm|mp4) (p. ej. render de
- * Higgsfield con fondo BLANCO) se superpone con mix-blend multiply y reemplaza
- * al splash de código. Respeta prefers-reduced-motion.
+ * Splash de vino al cargar la página. 100% en código (SVG + Framer Motion):
+ * estallido radial centrado en la botella, con "bloom" de vino, cinta del
+ * derrame y gotas que vuelan hacia los lados (visibles sobre la crema). La capa
+ * 'back' admite además un video de Higgsfield superpuesto (fondo blanco ->
+ * multiply). Respeta prefers-reduced-motion.
  */
-export function EntrySplash({ className }: EntrySplashProps) {
+export function EntrySplash({ className, variant = 'back' }: EntrySplashProps) {
   const reduced = usePrefersReducedMotion();
   const [videoOk, setVideoOk] = useState(false);
+  const isBack = variant === 'back';
+  const list = isBack ? BACK_DROPLETS : FRONT_DROPLETS;
 
   return (
     <div className={className} aria-hidden="true">
-      {/* Video opcional (Higgsfield). Fondo blanco -> multiply lo integra sobre la crema. */}
-      <video
-        className="pointer-events-none absolute inset-0 h-full w-full object-cover mix-blend-multiply"
-        style={{ opacity: videoOk ? 1 : 0, transition: 'opacity 600ms ease' }}
-        autoPlay
-        muted
-        playsInline
-        preload="auto"
-        onCanPlay={() => !reduced && setVideoOk(true)}
-        onError={() => setVideoOk(false)}
-      >
-        <source src="/assets/wine-splash.webm" type="video/webm" />
-        <source src="/assets/wine-splash.mp4" type="video/mp4" />
-      </video>
+      {/* Video opcional (Higgsfield), solo en la capa de fondo. Fondo blanco -> multiply. */}
+      {isBack && (
+        <video
+          className="pointer-events-none absolute inset-0 h-full w-full object-cover mix-blend-multiply"
+          style={{ opacity: videoOk ? 1 : 0, transition: 'opacity 600ms ease' }}
+          autoPlay
+          muted
+          playsInline
+          preload="auto"
+          onCanPlay={() => !reduced && setVideoOk(true)}
+          onError={() => setVideoOk(false)}
+        >
+          <source src="/assets/wine-splash.webm" type="video/webm" />
+          <source src="/assets/wine-splash.mp4" type="video/mp4" />
+        </video>
+      )}
 
-      {/* Splash de código (se oculta si el video carga) */}
       <svg
         viewBox="0 0 600 600"
         className="absolute inset-0 h-full w-full"
@@ -60,98 +78,97 @@ export function EntrySplash({ className }: EntrySplashProps) {
         xmlns="http://www.w3.org/2000/svg"
       >
         <defs>
-          <radialGradient id="splash-fill" cx="50%" cy="42%" r="60%">
-            <stop offset="0%" stopColor="#7a1f24" />
-            <stop offset="55%" stopColor="#5a1a22" />
+          <radialGradient id={`bloom-${variant}`} cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#7a1f24" stopOpacity="0.55" />
+            <stop offset="55%" stopColor="#5a1a22" stopOpacity="0.28" />
+            <stop offset="100%" stopColor="#5a1a22" stopOpacity="0" />
+          </radialGradient>
+          <radialGradient id={`drop-${variant}`} cx="42%" cy="38%" r="65%">
+            <stop offset="0%" stopColor="#8f2730" />
+            <stop offset="60%" stopColor="#5a1a22" />
             <stop offset="100%" stopColor="#3e1117" />
           </radialGradient>
-          <linearGradient id="ribbon-fill" x1="0" y1="0" x2="0" y2="1">
+          <linearGradient id={`ribbon-${variant}`} x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stopColor="#a6442e" />
             <stop offset="100%" stopColor="#5a1a22" />
           </linearGradient>
-          <filter id="liquid" x="-30%" y="-30%" width="160%" height="160%">
+          <filter id={`liquid-${variant}`} x="-40%" y="-40%" width="180%" height="180%">
             <feTurbulence type="fractalNoise" baseFrequency="0.012 0.02" numOctaves="2" seed="7" result="n" />
-            <feDisplacementMap in="SourceGraphic" in2="n" scale="22" xChannelSelector="R" yChannelSelector="G" />
+            <feDisplacementMap in="SourceGraphic" in2="n" scale="18" xChannelSelector="R" yChannelSelector="G" />
           </filter>
         </defs>
 
-        {/* Charco asentado (queda como estado de reposo) */}
-        <motion.ellipse
-          cx="300"
-          cy="430"
-          rx="120"
-          ry="26"
-          fill="url(#splash-fill)"
-          initial={reduced ? { opacity: 0.5 } : { opacity: 0, scaleX: 0.7 }}
-          animate={{ opacity: reduced ? 0.5 : [0, 0.6, 0.42], scaleX: 1 }}
-          transition={reduced ? { duration: 0 } : { duration: 1.1, delay: 0.45, ease: [0.22, 1, 0.36, 1] }}
-          style={{ transformOrigin: '300px 430px' }}
-        />
+        {/* Bloom de vino (mancha radial que se expande) */}
+        {isBack && (
+          <motion.circle
+            cx="300"
+            cy="300"
+            r="180"
+            fill={`url(#bloom-${variant})`}
+            initial={reduced ? { opacity: 0.35, scale: 1 } : { opacity: 0, scale: 0.3 }}
+            animate={{ opacity: reduced ? 0.35 : [0, 0.7, 0.18], scale: reduced ? 1 : [0.3, 1.25, 1.1] }}
+            transition={reduced ? { duration: 0 } : { duration: 1.4, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            style={{ transformOrigin: '300px 300px' }}
+          />
+        )}
 
         {!reduced && (
           <>
             {/* Cinta del derrame que cae desde arriba */}
-            <motion.path
-              d="M300 -40 C300 80, 286 180, 300 300 C312 360, 300 410, 300 430"
-              stroke="url(#ribbon-fill)"
-              strokeWidth="14"
-              strokeLinecap="round"
-              fill="none"
-              filter="url(#liquid)"
-              initial={{ pathLength: 0, opacity: 0 }}
-              animate={{ pathLength: [0, 1, 1], opacity: [0, 1, 0] }}
-              transition={{ duration: 1.5, ease: 'easeIn', times: [0, 0.45, 1] }}
-            />
-
-            {/* Corona central que estalla */}
-            <motion.path
-              d="M300 300 C250 300 220 360 232 408 C244 452 280 470 300 470 C320 470 356 452 368 408 C380 360 350 300 300 300 Z"
-              fill="url(#splash-fill)"
-              filter="url(#liquid)"
-              initial={{ scale: 0.3, opacity: 0 }}
-              animate={{ scale: [0.3, 1.18, 1], opacity: [0, 1, 0.9] }}
-              transition={{ duration: 0.9, delay: 0.3, ease: [0.34, 1.56, 0.64, 1] }}
-              style={{ transformOrigin: '300px 410px' }}
-            />
+            {isBack && (
+              <motion.path
+                d="M300 -60 C300 70, 284 180, 300 290 C312 330, 300 300, 300 300"
+                stroke={`url(#ribbon-${variant})`}
+                strokeWidth="13"
+                strokeLinecap="round"
+                fill="none"
+                filter={`url(#liquid-${variant})`}
+                initial={{ pathLength: 0, opacity: 0 }}
+                animate={{ pathLength: [0, 1, 1], opacity: [0, 1, 0] }}
+                transition={{ duration: 1.3, ease: 'easeIn', times: [0, 0.5, 1] }}
+              />
+            )}
 
             {/* Gotas radiales */}
-            {DROPLETS.map((dp, i) => {
+            {list.map((dp, i) => {
               const x = Math.cos(rad(dp.a - 90)) * dp.d;
               const y = Math.sin(rad(dp.a - 90)) * dp.d;
               return (
                 <motion.circle
-                  key={i}
+                  key={`${variant}-${i}`}
                   cx="300"
-                  cy="360"
+                  cy="300"
                   r={dp.r}
-                  fill="url(#splash-fill)"
-                  initial={{ x: 0, y: 0, opacity: 0, scale: 0.4 }}
+                  fill={`url(#drop-${variant})`}
+                  initial={{ x: 0, y: 0, opacity: 0, scale: 0.3 }}
                   animate={{
                     x: [0, x * 0.7, x],
-                    y: [0, y * 0.6 - 40, y + 30],
-                    opacity: [0, 1, 0],
-                    scale: [0.4, 1, 0.5],
+                    y: [0, y * 0.7, y + 30],
+                    opacity: [0, 1, 1, 0],
+                    scale: [0.3, 1.25, 1.1, 0.6],
                   }}
                   transition={{
-                    duration: 1,
-                    delay: 0.34 + (i % 5) * 0.03,
+                    duration: isBack ? 1.5 : 1.6,
+                    delay: 0.3 + (i % 5) * 0.04,
                     ease: 'easeOut',
+                    times: [0, 0.28, 0.62, 1],
                   }}
                 />
               );
             })}
 
-            {/* Brillo especular sobre la corona */}
-            <motion.path
-              d="M270 340 C262 372 270 404 286 420"
-              stroke="rgba(255,255,255,0.5)"
-              strokeWidth="5"
-              strokeLinecap="round"
-              fill="none"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: [0, 0.6, 0] }}
-              transition={{ duration: 0.9, delay: 0.42, ease: 'easeOut' }}
-            />
+            {/* Corona central que estalla (detrás) */}
+            {isBack && (
+              <motion.path
+                d="M232 300 C232 262 252 240 268 234 C276 262 286 280 300 286 C314 280 324 262 332 234 C348 240 368 262 368 300 C368 326 340 340 300 340 C260 340 232 326 232 300 Z"
+                fill={`url(#drop-${variant})`}
+                filter={`url(#liquid-${variant})`}
+                initial={{ scale: 0.3, opacity: 0 }}
+                animate={{ scale: [0.3, 1.15, 0.95], opacity: [0, 1, 0] }}
+                transition={{ duration: 1, delay: 0.3, ease: [0.34, 1.56, 0.64, 1] }}
+                style={{ transformOrigin: '300px 300px' }}
+              />
+            )}
           </>
         )}
       </svg>

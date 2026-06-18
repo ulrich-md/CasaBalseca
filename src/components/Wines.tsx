@@ -6,10 +6,10 @@ import { EyebrowDotted } from './ui/Eyebrow';
 import { wines, type Wine } from '../data/wines';
 import { fadeUp, staggerContainer, viewportOnce } from '../lib/motion';
 
-// REEMPLAZAR: fotos reales — PNG por vino, con fallback al SVG.
-const BOTTLE_SRC: Record<Wine['id'], string> = {
-  crianza: '/assets/bottle-crianza.png',
-  roble: '/assets/bottle-roble.png',
+// Fotos reales de marca — WebP + PNG por vino, con fallback al SVG.
+const BOTTLE_SRC: Record<Wine['id'], { png: string; webp: string }> = {
+  crianza: { png: '/assets/bottle-crianza.png', webp: '/assets/bottle-crianza.webp' },
+  roble: { png: '/assets/bottle-roble.png', webp: '/assets/bottle-roble.webp' },
 };
 
 export function Wines() {
@@ -66,7 +66,8 @@ function WineCard({ wine }: { wine: Wine }) {
         <div className="relative flex items-end justify-center">
           <div className="pointer-events-none absolute bottom-6 h-32 w-32 rounded-full bg-[radial-gradient(circle,rgba(176,133,46,0.18),transparent_70%)] blur-xl" />
           <SmartImage
-            src={BOTTLE_SRC[wine.id]}
+            src={BOTTLE_SRC[wine.id].png}
+            webp={BOTTLE_SRC[wine.id].webp}
             alt={`${wine.name} ${wine.vintage}`}
             className="h-[19rem] w-auto object-contain drop-shadow-[0_24px_30px_rgba(62,17,23,0.28)] transition-transform duration-700 ease-power4 group-hover:-translate-y-1 sm:h-[22rem]"
             fallback={

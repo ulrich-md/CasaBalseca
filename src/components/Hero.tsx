@@ -11,8 +11,9 @@ import { powerEase } from '../lib/motion';
 
 gsap.registerPlugin(ScrollTrigger);
 
-// REEMPLAZAR: foto real — botella Crianza. Se usa el PNG si existe, si no cae al SVG.
-const BOTTLE_SRC = '/assets/bottle-crianza.png';
+// Foto real de marca — botella Crianza (WebP + PNG). Si no existe, cae al SVG.
+const BOTTLE_PNG = '/assets/bottle-crianza.png';
+const BOTTLE_WEBP = '/assets/bottle-crianza.webp';
 
 const container: Variants = {
   hidden: {},
@@ -147,9 +148,6 @@ export function Hero() {
             className="pointer-events-none absolute bottom-0 left-1/2 -z-10 h-[42vh] w-[42vh] -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(176,133,46,0.28),rgba(166,68,46,0.12)_45%,transparent_70%)] blur-2xl"
           />
 
-          {/* Splash de vino al cargar (detrás de la botella) */}
-          <EntrySplash className="pointer-events-none absolute bottom-[-6%] left-1/2 -z-10 aspect-square h-[64vh] max-h-[640px] w-auto -translate-x-1/2" />
-
           {/* Botella + reflejo */}
           <motion.div
             ref={bottleRef}
@@ -159,38 +157,55 @@ export function Hero() {
             className="relative flex flex-col items-center"
           >
             <div className="relative">
+              {/* Splash de vino al cargar — estallido detrás de la botella */}
+              <EntrySplash
+                variant="back"
+                className="absolute left-1/2 top-1/2 z-0 aspect-square h-[150%] -translate-x-1/2 -translate-y-1/2"
+              />
               {bottlePng ? (
-                <img
-                  src={BOTTLE_SRC}
-                  alt="Casa Balseca Crianza 2014 — vino tinto de Ribera del Duero"
-                  onError={() => setBottlePng(false)}
-                  draggable={false}
-                  className="h-[clamp(20rem,54vh,34rem)] w-auto object-contain drop-shadow-[0_38px_50px_rgba(62,17,23,0.34)]"
-                />
+                <picture>
+                  <source srcSet={BOTTLE_WEBP} type="image/webp" />
+                  <img
+                    src={BOTTLE_PNG}
+                    alt="Casa Balseca Crianza 2014 — vino tinto de Ribera del Duero"
+                    onError={() => setBottlePng(false)}
+                    draggable={false}
+                    fetchPriority="high"
+                    className="relative z-10 h-[clamp(20rem,54vh,34rem)] w-auto object-contain drop-shadow-[0_38px_50px_rgba(62,17,23,0.34)]"
+                  />
+                </picture>
               ) : (
                 <Bottle
                   variant="crianza"
-                  className="h-[clamp(20rem,54vh,34rem)] w-auto drop-shadow-[0_38px_50px_rgba(62,17,23,0.34)]"
+                  className="relative z-10 h-[clamp(20rem,54vh,34rem)] w-auto drop-shadow-[0_38px_50px_rgba(62,17,23,0.34)]"
                   title="Casa Balseca Crianza 2014"
                 />
               )}
               {/* Barrido de luz cálido sobre la botella */}
               {!reduced && (
-                <span className="pointer-events-none absolute inset-y-[8%] left-1/2 w-[40%] -translate-x-1/2 overflow-hidden">
+                <span className="pointer-events-none absolute inset-y-[8%] left-1/2 z-10 w-[40%] -translate-x-1/2 overflow-hidden">
                   <span className="absolute inset-y-0 -left-1/3 w-1/3 -skew-x-12 bg-gradient-to-r from-transparent via-white/35 to-transparent animate-sheen" />
                 </span>
               )}
+              {/* Gotas en primer plano — delante de la botella */}
+              <EntrySplash
+                variant="front"
+                className="pointer-events-none absolute left-1/2 top-1/2 z-20 aspect-square h-[150%] -translate-x-1/2 -translate-y-1/2"
+              />
             </div>
 
-            {/* Reflejo en el suelo (solo con el PNG real) */}
+            {/* Reflejo en el suelo (solo con la foto real) */}
             {bottlePng && (
-              <img
-                src={BOTTLE_SRC}
-                alt=""
-                aria-hidden="true"
-                draggable={false}
-                className="pointer-events-none -mt-1 h-[clamp(7rem,18vh,11rem)] w-auto -scale-y-100 object-contain object-top opacity-20 [mask-image:linear-gradient(to_bottom,rgba(0,0,0,0.5),transparent_70%)]"
-              />
+              <picture>
+                <source srcSet={BOTTLE_WEBP} type="image/webp" />
+                <img
+                  src={BOTTLE_PNG}
+                  alt=""
+                  aria-hidden="true"
+                  draggable={false}
+                  className="pointer-events-none -mt-1 h-[clamp(7rem,18vh,11rem)] w-auto -scale-y-100 object-contain object-top opacity-20 [mask-image:linear-gradient(to_bottom,rgba(0,0,0,0.5),transparent_70%)]"
+                />
+              </picture>
             )}
           </motion.div>
         </div>

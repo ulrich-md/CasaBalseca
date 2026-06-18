@@ -26,6 +26,7 @@ export function Logo({
     <span className={`inline-flex items-center gap-3 ${className ?? ''}`}>
       <SmartImage
         src={LOGO_SRC}
+        webp="/assets/logo.webp"
         alt="Casa Balseca"
         eager
         className="h-8 w-auto shrink-0 object-contain md:h-9"
