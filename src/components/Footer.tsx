@@ -47,7 +47,7 @@ export function Footer() {
                       e.preventDefault();
                       scrollToId(item.href);
                     }}
-                    className="text-sm text-paper/70 transition-colors hover:text-gold"
+                    className="cursor-pointer text-sm text-paper/70 transition-colors hover:text-gold"
                   >
                     {item.label}
                   </a>
@@ -64,7 +64,7 @@ export function Footer() {
                 <li key={item.label}>
                   <a
                     href={item.href}
-                    className="text-sm text-paper/70 transition-colors hover:text-gold"
+                    className="cursor-pointer text-sm text-paper/70 transition-colors hover:text-gold"
                   >
                     {item.label}
                   </a>

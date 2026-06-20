@@ -147,6 +147,10 @@
     background: #93371f;
     transform: translateY(-2px);
   }
+  .btn:focus-visible {
+    outline: 2px solid var(--terra);
+    outline-offset: 3px;
+  }
 
   /* Filete dorado fino */
   .hairline {

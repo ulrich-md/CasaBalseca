@@ -67,7 +67,7 @@ export function Header() {
         <a
           href="#inicio"
           onClick={(e) => onNavClick(e, '#inicio')}
-          className="text-ink"
+          className="cursor-pointer text-ink"
           aria-label="Casa Balseca — inicio"
         >
           <Logo />

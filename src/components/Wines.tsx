@@ -131,7 +131,7 @@ function WineCard({ wine }: { wine: Wine }) {
               href={wine.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group/link inline-flex items-center gap-2 text-[0.78rem] font-medium uppercase tracking-[0.16em] text-ink transition-colors hover:text-terra"
+              className="group/link inline-flex cursor-pointer items-center gap-2 text-[0.78rem] font-medium uppercase tracking-[0.16em] text-ink transition-colors hover:text-terra"
             >
               Ver ficha
               <span className="transition-transform duration-300 group-hover/link:translate-x-1">
