@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Logo } from './ui/Logo';
 import { BerberPattern } from './ui/BerberPattern';
@@ -17,6 +17,9 @@ export function Header() {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState('inicio');
   const reduced = usePrefersReducedMotion();
+  const menuRef = useRef<HTMLDivElement>(null);
+  const burgerRef = useRef<HTMLButtonElement>(null);
+  const wasOpen = useRef(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -51,11 +54,46 @@ export function Header() {
     };
   }, [open]);
 
-  // Cierra el menú con Escape
+  // Gestión de foco del diálogo: al abrir, foco al primer link;
+  // al cerrar, el foco vuelve al botón hamburguesa
+  useEffect(() => {
+    if (open) {
+      wasOpen.current = true;
+      requestAnimationFrame(() => {
+        menuRef.current?.querySelector<HTMLElement>('a[href]')?.focus();
+      });
+    } else if (wasOpen.current) {
+      wasOpen.current = false;
+      burgerRef.current?.focus();
+    }
+  }, [open]);
+
+  // Escape cierra el menú; Tab queda atrapado dentro del diálogo
+  // (los focusables son el botón de cierre + los links del menú)
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setOpen(false);
+      if (e.key === 'Escape') {
+        setOpen(false);
+        return;
+      }
+      if (e.key !== 'Tab') return;
+      const menu = menuRef.current;
+      const burger = burgerRef.current;
+      if (!menu || !burger) return;
+      const items = [burger, ...Array.from(menu.querySelectorAll<HTMLElement>('a[href]'))];
+      const activeEl = document.activeElement as HTMLElement | null;
+      const idx = activeEl ? items.indexOf(activeEl) : -1;
+      if (idx === -1) {
+        e.preventDefault();
+        items[0].focus();
+      } else if (e.shiftKey && idx === 0) {
+        e.preventDefault();
+        items[items.length - 1].focus();
+      } else if (!e.shiftKey && idx === items.length - 1) {
+        e.preventDefault();
+        items[0].focus();
+      }
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
@@ -125,6 +163,7 @@ export function Header() {
 
           {/* Botón menú móvil */}
           <button
+            ref={burgerRef}
             type="button"
             onClick={() => setOpen((v) => !v)}
             className="relative z-50 flex h-11 w-11 cursor-pointer items-center justify-center lg:hidden"
@@ -158,6 +197,7 @@ export function Header() {
       <AnimatePresence>
         {open && (
           <motion.div
+            ref={menuRef}
             id="mobile-menu"
             key="mobile-menu"
             role="dialog"

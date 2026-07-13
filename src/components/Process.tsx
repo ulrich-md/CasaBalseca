@@ -1,10 +1,7 @@
 import { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Reveal } from './ui/Reveal';
 import { BerberPattern } from './ui/BerberPattern';
-
-gsap.registerPlugin(ScrollTrigger);
+import { loadGsap } from '../lib/scrollLibs';
 
 const STEPS = [
   {
@@ -33,49 +30,57 @@ export function Process() {
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      const mm = gsap.matchMedia();
+    let cancelled = false;
+    let ctx: { revert: () => void } | undefined;
+    loadGsap().then(({ gsap }) => {
+      if (cancelled) return;
+      ctx = gsap.context(() => {
+        const mm = gsap.matchMedia();
 
-      mm.add(
-        {
-          isDesktop: '(min-width: 768px)',
-          isMobile: '(max-width: 767px)',
-          reduce: '(prefers-reduced-motion: reduce)',
-        },
-        (context) => {
-          const { isDesktop, reduce } = context.conditions as {
-            isDesktop: boolean;
-            isMobile: boolean;
-            reduce: boolean;
-          };
+        mm.add(
+          {
+            isDesktop: '(min-width: 768px)',
+            isMobile: '(max-width: 767px)',
+            reduce: '(prefers-reduced-motion: reduce)',
+          },
+          (context) => {
+            const { isDesktop, reduce } = context.conditions as {
+              isDesktop: boolean;
+              isMobile: boolean;
+              reduce: boolean;
+            };
 
-          const fill = sectionRef.current?.querySelectorAll('.process-fill');
-          if (!fill) return;
+            const fill = sectionRef.current?.querySelectorAll('.process-fill');
+            if (!fill) return;
 
-          if (reduce) {
-            gsap.set(fill, { scaleX: 1, scaleY: 1 });
-            return;
-          }
+            if (reduce) {
+              gsap.set(fill, { scaleX: 1, scaleY: 1 });
+              return;
+            }
 
-          gsap.fromTo(
-            fill,
-            isDesktop ? { scaleX: 0 } : { scaleY: 0 },
-            {
-              [isDesktop ? 'scaleX' : 'scaleY']: 1,
-              ease: 'none',
-              scrollTrigger: {
-                trigger: sectionRef.current,
-                start: 'top 65%',
-                end: 'bottom 75%',
-                scrub: 1,
+            gsap.fromTo(
+              fill,
+              isDesktop ? { scaleX: 0 } : { scaleY: 0 },
+              {
+                [isDesktop ? 'scaleX' : 'scaleY']: 1,
+                ease: 'none',
+                scrollTrigger: {
+                  trigger: sectionRef.current,
+                  start: 'top 65%',
+                  end: 'bottom 75%',
+                  scrub: 1,
+                },
               },
-            },
-          );
-        },
-      );
-    }, sectionRef);
+            );
+          },
+        );
+      }, sectionRef);
+    });
 
-    return () => ctx.revert();
+    return () => {
+      cancelled = true;
+      ctx?.revert();
+    };
   }, []);
 
   return (

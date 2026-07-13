@@ -1,15 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion, type Variants } from 'framer-motion';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Bottle } from './ui/Bottle';
 import { EntrySplash } from './ui/EntrySplash';
 import { BerberPattern } from './ui/BerberPattern';
 import { scrollToId } from '../lib/useLenis';
+import { loadGsap } from '../lib/scrollLibs';
 import { usePrefersReducedMotion } from '../lib/usePrefersReducedMotion';
 import { powerEase } from '../lib/motion';
-
-gsap.registerPlugin(ScrollTrigger);
 
 // Foto real de marca — botella Crianza (WebP + PNG). Si no existe, cae al SVG.
 const BOTTLE_PNG = '/assets/bottle-crianza.png';
@@ -35,22 +32,31 @@ export function Hero({ ready = true }: { ready?: boolean }) {
   const reduced = usePrefersReducedMotion();
   const [bottlePng, setBottlePng] = useState(true);
 
-  // Parallax MUY sutil con scrub (palabra fantasma y botella a distinta velocidad)
+  // Parallax MUY sutil con scrub (palabra fantasma y botella a distinta velocidad).
+  // GSAP llega en un chunk diferido: el efecto se engancha cuando carga.
   useEffect(() => {
     if (reduced) return;
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top top',
-          end: 'bottom top',
-          scrub: 1,
-        },
-      });
-      tl.to(ghostRef.current, { yPercent: 26, ease: 'none' }, 0);
-      tl.to(bottleRef.current, { yPercent: -10, ease: 'none' }, 0);
-    }, sectionRef);
-    return () => ctx.revert();
+    let cancelled = false;
+    let ctx: { revert: () => void } | undefined;
+    loadGsap().then(({ gsap }) => {
+      if (cancelled) return;
+      ctx = gsap.context(() => {
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top top',
+            end: 'bottom top',
+            scrub: 1,
+          },
+        });
+        tl.to(ghostRef.current, { yPercent: 26, ease: 'none' }, 0);
+        tl.to(bottleRef.current, { yPercent: -10, ease: 'none' }, 0);
+      }, sectionRef);
+    });
+    return () => {
+      cancelled = true;
+      ctx?.revert();
+    };
   }, [reduced]);
 
   return (
