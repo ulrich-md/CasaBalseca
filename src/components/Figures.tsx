@@ -30,7 +30,7 @@ export function Figures() {
             <RevealItem
               key={stat.label + i}
               className={`px-4 text-center md:px-8 ${
-                i > 0 ? 'md:border-l md:border-ink/12' : ''
+                i > 0 ? 'md:border-l md:border-ink/10' : ''
               }`}
             >
               <p className="font-display text-[clamp(2.8rem,7vw,4.5rem)] font-light leading-none tracking-[-0.02em] text-ink">

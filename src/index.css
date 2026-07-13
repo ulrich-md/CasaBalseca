@@ -151,6 +151,30 @@
     outline: 2px solid var(--terra);
     outline-offset: 3px;
   }
+  /* Feedback de pulsación: respuesta rápida al presionar */
+  .btn:active {
+    transform: translateY(0) scale(0.97);
+    transition-duration: 0.12s;
+  }
+
+  /* Link con subrayado que se dibuja al hover (footer, secundarios) */
+  .link-underline {
+    position: relative;
+  }
+  .link-underline::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    height: 1px;
+    width: 0;
+    background: currentColor;
+    opacity: 0.7;
+    transition: width 0.35s cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+  .link-underline:hover::after {
+    width: 100%;
+  }
 
   /* Filete dorado fino */
   .hairline {

@@ -47,7 +47,7 @@ export function Footer() {
                       e.preventDefault();
                       scrollToId(item.href);
                     }}
-                    className="cursor-pointer text-sm text-paper/70 transition-colors hover:text-gold"
+                    className="link-underline cursor-pointer text-sm text-paper/70 transition-colors hover:text-gold"
                   >
                     {item.label}
                   </a>
@@ -64,7 +64,7 @@ export function Footer() {
                 <li key={item.label}>
                   <a
                     href={item.href}
-                    className="cursor-pointer text-sm text-paper/70 transition-colors hover:text-gold"
+                    className="link-underline cursor-pointer text-sm text-paper/70 transition-colors hover:text-gold"
                   >
                     {item.label}
                   </a>
@@ -78,7 +78,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-14 border-t border-paper/12 pt-7">
+        <div className="mt-14 border-t border-paper/10 pt-7">
           <div className="flex flex-col gap-4 text-xs text-paper/65 sm:flex-row sm:items-center sm:justify-between">
             <p>© {new Date().getFullYear()} Casa Balseca. Todos los derechos reservados.</p>
             {/* Aviso de edad discreto (sin modal / age-gate) */}
