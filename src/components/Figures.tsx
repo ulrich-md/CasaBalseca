@@ -42,7 +42,7 @@ export function Figures() {
                 )}
               </p>
               <p className="mt-4 font-display text-base text-burgundy">{stat.label}</p>
-              <p className="eyebrow !text-[0.625rem] mt-1.5">{stat.sub}</p>
+              <p className="eyebrow !text-[0.6875rem] mt-1.5">{stat.sub}</p>
             </RevealItem>
           ))}
         </RevealGroup>

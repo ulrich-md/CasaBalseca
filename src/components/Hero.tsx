@@ -99,18 +99,22 @@ export function Hero({ ready = true }: { ready?: boolean }) {
         </motion.span>
       </div>
 
-      {/* Eyebrows en esquinas (desktop) */}
-      <div className="absolute left-6 top-28 hidden max-w-[210px] md:block lg:left-10 lg:top-36">
-        <p className="eyebrow leading-relaxed">
-          Ribera del Duero ·{' '}
-          <span className="script-accent text-base normal-case tracking-normal">Denominación de origen</span>
-        </p>
-      </div>
-      <div className="absolute right-6 top-28 hidden max-w-[210px] text-right md:block lg:right-10 lg:top-36">
-        <p className="eyebrow leading-relaxed">
-          <span className="script-accent text-base normal-case tracking-normal">Vino Tinto</span>{' '}
-          · Producto de España
-        </p>
+      {/* Eyebrows en esquinas (desktop), alineados a la retícula del header */}
+      <div className="absolute inset-x-0 top-36 hidden lg:block">
+        <div className="shell flex items-start justify-between">
+          <p className="eyebrow leading-relaxed">
+            <span className="block">Ribera del Duero</span>
+            <span className="script-accent block text-lg normal-case leading-tight tracking-normal">
+              Denominación de origen
+            </span>
+          </p>
+          <p className="eyebrow text-right leading-relaxed">
+            <span className="block">Producto de España</span>
+            <span className="script-accent block text-lg normal-case leading-tight tracking-normal">
+              Vino Tinto
+            </span>
+          </p>
+        </div>
       </div>
 
       {/* Contenido */}
@@ -143,8 +147,35 @@ export function Hero({ ready = true }: { ready?: boolean }) {
           Tempranillo de guarda, criado con paciencia y firmado botella a botella.
         </motion.p>
 
+        {/* CTAs: justo bajo el texto para que queden en el primer pantallazo */}
+        <motion.div
+          variants={fadeUpChild}
+          className="mt-7 flex w-full flex-col items-center gap-3 sm:w-auto sm:flex-row sm:gap-4"
+        >
+          <a
+            href="#los-vinos"
+            onClick={(e) => {
+              e.preventDefault();
+              scrollToId('#los-vinos');
+            }}
+            className="btn btn-fill w-full max-w-xs sm:w-auto"
+          >
+            Descubre los vinos
+          </a>
+          <a
+            href="#donde-comprar"
+            onClick={(e) => {
+              e.preventDefault();
+              scrollToId('#donde-comprar');
+            }}
+            className="btn btn-outline hidden sm:inline-flex"
+          >
+            Dónde comprar
+          </a>
+        </motion.div>
+
         {/* Escenario de la botella */}
-        <div className="relative mt-1 flex w-full items-end justify-center">
+        <div className="relative mt-4 flex w-full items-end justify-center">
           {/* Spotlight cálido que crece al cargar */}
           <motion.div
             aria-hidden="true"
@@ -217,30 +248,6 @@ export function Hero({ ready = true }: { ready?: boolean }) {
             )}
           </motion.div>
         </div>
-
-        {/* CTAs */}
-        <motion.div variants={fadeUpChild} className="mt-7 flex flex-col items-center gap-3 sm:flex-row sm:gap-4">
-          <a
-            href="#los-vinos"
-            onClick={(e) => {
-              e.preventDefault();
-              scrollToId('#los-vinos');
-            }}
-            className="btn btn-fill"
-          >
-            Descubre los vinos
-          </a>
-          <a
-            href="#donde-comprar"
-            onClick={(e) => {
-              e.preventDefault();
-              scrollToId('#donde-comprar');
-            }}
-            className="btn btn-outline"
-          >
-            Dónde comprar
-          </a>
-        </motion.div>
       </motion.div>
 
       {/* Indicador de scroll */}
@@ -253,7 +260,7 @@ export function Hero({ ready = true }: { ready?: boolean }) {
         className="group relative z-10 mt-6 flex flex-col items-center gap-2"
         aria-label="Desplázate para descubrir"
       >
-        <span className="eyebrow !text-[0.625rem] text-muted/70">Scroll</span>
+        <span className="eyebrow !text-[0.6875rem]">Scroll</span>
         <span className="relative flex h-9 w-5 justify-center rounded-full border border-ink/25">
           <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-terra animate-scroll-dot" />
         </span>

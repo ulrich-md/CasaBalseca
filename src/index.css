@@ -13,6 +13,8 @@
   --burgundy-deep: #3e1117;
   --terra: #a6442e;
   --gold: #b0852e;
+  --gold-ink: #80591a;
+  --gold-light: #caa24c;
   --ink: #2a211c;
   --muted: #6e6053;
 }
@@ -95,7 +97,7 @@
 
   .script-accent {
     font-family: 'Mr Dafoe', cursive;
-    color: var(--gold);
+    color: var(--gold-ink);
     font-weight: 400;
   }
 

@@ -17,6 +17,9 @@ export default {
         'burgundy-deep': '#3E1117',
         terra: '#A6442E',
         gold: '#B0852E',
+        // Dorado para TEXTO: sobre claro (≥5:1) y sobre oscuro (≥5.4:1)
+        'gold-ink': '#80591A',
+        'gold-light': '#CAA24C',
         ink: '#2A211C',
         muted: '#6E6053',
       },

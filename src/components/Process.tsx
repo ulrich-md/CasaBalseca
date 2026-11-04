@@ -87,6 +87,7 @@ export function Process() {
     <section
       id="el-proceso"
       ref={sectionRef}
+      data-header-theme="dark"
       className="relative overflow-hidden bg-burgundy-deep py-24 text-paper md:py-32"
     >
       {/* Atmósfera */}
@@ -98,7 +99,7 @@ export function Process() {
         {/* Encabezado */}
         <div className="mx-auto max-w-2xl text-center">
           <Reveal>
-            <p className="eyebrow !text-gold/80">El proceso</p>
+            <p className="eyebrow !text-gold-light">El proceso</p>
           </Reveal>
           <Reveal delay={0.06}>
             <h2 className="mt-5 font-display text-[clamp(2.1rem,5vw,3.6rem)] font-light leading-[1.05] tracking-[-0.02em] text-paper">

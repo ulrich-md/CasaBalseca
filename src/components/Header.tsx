@@ -14,6 +14,8 @@ const NAV = [
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
+  // true cuando la barra queda sobre una sección oscura (data-header-theme="dark")
+  const [onDark, setOnDark] = useState(false);
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState('inicio');
   const reduced = usePrefersReducedMotion();
@@ -22,7 +24,18 @@ export function Header() {
   const wasOpen = useRef(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    const onScroll = () => {
+      setScrolled(window.scrollY > 24);
+      // Punto de muestreo: centro vertical de la barra
+      const y = window.innerWidth >= 768 ? 38 : 34;
+      const dark = Array.from(
+        document.querySelectorAll<HTMLElement>('[data-header-theme="dark"]'),
+      ).some((el) => {
+        const r = el.getBoundingClientRect();
+        return r.top <= y && r.bottom >= y;
+      });
+      setOnDark(dark);
+    };
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
@@ -99,6 +112,10 @@ export function Header() {
     return () => window.removeEventListener('keydown', onKey);
   }, [open]);
 
+  // Tema efectivo de la barra (el menú abierto siempre es claro)
+  const dark = onDark && !open;
+  const barLine = dark ? 'bg-paper' : 'bg-ink';
+
   const onNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
     setOpen(false);
@@ -111,9 +128,11 @@ export function Header() {
         className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
           open
             ? 'border-b border-transparent bg-transparent'
-            : scrolled
-              ? 'border-b border-ink/10 bg-ivory/80 backdrop-blur-xl supports-[backdrop-filter]:bg-ivory/65'
-              : 'border-b border-transparent bg-transparent'
+            : dark
+              ? 'border-b border-paper/10 bg-burgundy-deep/90 backdrop-blur-xl'
+              : scrolled
+                ? 'border-b border-ink/10 bg-ivory/95 backdrop-blur-xl supports-[backdrop-filter]:bg-ivory/90'
+                : 'border-b border-transparent bg-transparent'
         }`}
       >
         <div className="shell flex h-[68px] items-center justify-between md:h-[76px]">
@@ -121,7 +140,7 @@ export function Header() {
           <a
             href="#inicio"
             onClick={(e) => onNavClick(e, '#inicio')}
-            className="cursor-pointer text-ink"
+            className={`cursor-pointer transition-colors duration-500 ${dark ? 'text-paper' : 'text-ink'}`}
             aria-label="Casa Balseca — inicio"
           >
             <Logo />
@@ -137,8 +156,10 @@ export function Header() {
                   href={item.href}
                   onClick={(e) => onNavClick(e, item.href)}
                   aria-current={isActive ? 'true' : undefined}
-                  className={`group relative cursor-pointer text-[0.82rem] font-medium uppercase tracking-[0.16em] transition-colors hover:text-ink ${
-                    isActive ? 'text-ink' : 'text-ink/75'
+                  className={`group relative cursor-pointer text-[0.82rem] font-medium uppercase tracking-[0.16em] transition-colors duration-500 ${
+                    dark
+                      ? `hover:text-paper ${isActive ? 'text-paper' : 'text-paper/75'}`
+                      : `hover:text-ink ${isActive ? 'text-ink' : 'text-ink/75'}`
                   }`}
                 >
                   {item.label}
@@ -154,9 +175,15 @@ export function Header() {
 
           {/* Sello MOG (desktop) */}
           <div className="hidden items-center gap-2.5 lg:flex">
-            <span className="eyebrow !text-[0.625rem] text-muted/80">Distribuye</span>
-            <span className="h-3 w-px bg-ink/20" />
-            <span className="font-display text-sm tracking-wide text-ink">
+            <span className={`eyebrow !text-[0.6875rem] ${dark ? '!text-paper/70' : ''}`}>
+              Distribuye
+            </span>
+            <span className={`h-3 w-px ${dark ? 'bg-paper/25' : 'bg-ink/20'}`} />
+            <span
+              className={`font-display text-sm tracking-wide transition-colors duration-500 ${
+                dark ? 'text-paper' : 'text-ink'
+              }`}
+            >
               MOG Selections
             </span>
           </div>
@@ -173,17 +200,17 @@ export function Header() {
           >
             <span className="relative block h-3.5 w-6">
               <span
-                className={`absolute left-0 block h-px w-6 bg-ink transition-all duration-300 ${
+                className={`absolute left-0 block h-px w-6 ${barLine} transition-all duration-300 ${
                   open ? 'top-1.5 rotate-45' : 'top-0'
                 }`}
               />
               <span
-                className={`absolute left-0 top-1.5 block h-px bg-ink transition-all duration-300 ${
+                className={`absolute left-0 top-1.5 block h-px ${barLine} transition-all duration-300 ${
                   open ? 'w-0 opacity-0' : 'w-6 opacity-100'
                 }`}
               />
               <span
-                className={`absolute left-0 block h-px w-6 bg-ink transition-all duration-300 ${
+                className={`absolute left-0 block h-px w-6 ${barLine} transition-all duration-300 ${
                   open ? 'top-1.5 -rotate-45' : 'top-3'
                 }`}
               />
@@ -236,7 +263,7 @@ export function Header() {
                       }}
                       className="flex items-center gap-5 py-6 transition-opacity active:opacity-60"
                     >
-                      <span className="font-display text-xs tracking-[0.3em] text-gold">
+                      <span className="font-display text-xs tracking-[0.3em] text-gold-ink">
                         0{i + 1}
                       </span>
                       <span
@@ -264,11 +291,11 @@ export function Header() {
               className="relative px-8 pb-[calc(2.25rem+env(safe-area-inset-bottom))]"
             >
               <div className="hairline mb-6" />
-              <p className="eyebrow !text-[0.625rem]">Seleccionado y distribuido por</p>
+              <p className="eyebrow !text-[0.6875rem]">Seleccionado y distribuido por</p>
               <p className="mt-1.5 font-display text-xl leading-none text-ink">
                 MOG Selections
               </p>
-              <p className="eyebrow !text-[0.625rem] mt-4 text-muted/80">
+              <p className="eyebrow !text-[0.6875rem] mt-4">
                 Ribera del Duero · Vino Tinto · Producto de España
               </p>
             </motion.div>

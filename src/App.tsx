@@ -12,11 +12,22 @@ import { Footer } from './components/Footer';
 import { useLenis } from './lib/useLenis';
 import { usePrefersReducedMotion } from './lib/usePrefersReducedMotion';
 
+// El intro de marca se muestra una sola vez por sesión
+const INTRO_KEY = 'cb-intro-seen';
+const introSeen = () => {
+  try {
+    return sessionStorage.getItem(INTRO_KEY) === '1';
+  } catch {
+    return false;
+  }
+};
+
 export default function App() {
   const reduced = usePrefersReducedMotion();
+  const [skipIntro] = useState(introSeen);
   // `ready` arranca las animaciones del hero; `introDone` desmonta el intro.
-  const [ready, setReady] = useState(false);
-  const [introDone, setIntroDone] = useState(false);
+  const [ready, setReady] = useState(skipIntro);
+  const [introDone, setIntroDone] = useState(skipIntro);
 
   // Lenis sólo tras el intro y si no se pidió reducir el movimiento
   useLenis(introDone && !reduced);
@@ -41,7 +52,17 @@ export default function App() {
       </a>
 
       {!introDone && (
-        <Intro onReveal={() => setReady(true)} onDone={() => setIntroDone(true)} />
+        <Intro
+          onReveal={() => setReady(true)}
+          onDone={() => {
+            setIntroDone(true);
+            try {
+              sessionStorage.setItem(INTRO_KEY, '1');
+            } catch {
+              /* almacenamiento no disponible: el intro volverá a mostrarse */
+            }
+          }}
+        />
       )}
 
       <Header />

@@ -35,7 +35,7 @@ export const wines: Wine[] = [
     folioTotal: '9210',
     tasting:
       'Potente y equilibrado. Fruta negra madura, roble y especias sobre un fondo de taninos pulidos. Crianza de 24 meses de guarda, con un mínimo de 12 en barrica de roble.',
-    pairings: ['Res', 'Caza', 'Cordero'],
+    pairings: ['Carnes rojas', 'Caza', 'Cordero'],
     note: 'Edición limitada y numerada',
     url: CRIANZA_URL,
   },
@@ -50,7 +50,7 @@ export const wines: Wine[] = [
     folioTotal: '17166',
     tasting:
       'Joven y expresivo. Fruta roja vibrante y un paso por roble que aporta estructura sin pesar. Directo, fresco y de trago largo.',
-    pairings: ['Tablas', 'Pastas', 'Aves'],
+    pairings: ['Embutidos y quesos', 'Pasta', 'Aves'],
     note: 'Edición limitada y numerada',
     url: 'https://www.mogselections.com/product-page/casa-balseca-roble',
   },

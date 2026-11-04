@@ -14,7 +14,7 @@ export function TheHouse() {
       <BerberPattern className="absolute inset-0" opacity={0.045} tile={56} />
       <div className="hairline absolute inset-x-0 top-0" />
 
-      <div className="shell relative grid gap-14 lg:grid-cols-[46%_54%] lg:items-center lg:gap-16">
+      <div className="shell relative grid gap-14 lg:grid-cols-[1fr_1.15fr] lg:items-center lg:gap-16">
         {/* Texto editorial */}
         <div className="order-2 lg:order-1">
           <Reveal>

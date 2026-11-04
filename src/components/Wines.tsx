@@ -88,14 +88,14 @@ function WineCard({ wine }: { wine: Wine }) {
             <h3 className="font-display text-[1.9rem] font-light leading-none tracking-[-0.01em] text-ink">
               {wine.name.replace('Casa Balseca ', '')}
             </h3>
-            <span className="font-display text-2xl italic text-gold">
+            <span className="font-display text-2xl italic text-gold-ink">
               {wine.vintage}
             </span>
           </div>
 
           <span className="mt-2 inline-flex w-fit items-center gap-2 text-[0.7rem] font-medium uppercase tracking-[0.2em] text-terra">
             <span className="h-px w-5 bg-terra/60" />
-            {wine.designation}
+            {wine.note}
           </span>
 
           <p className="mt-5 text-base leading-relaxed text-muted text-pretty md:text-[0.92rem]">
@@ -104,7 +104,7 @@ function WineCard({ wine }: { wine: Wine }) {
 
           {/* Chips de maridaje */}
           <div className="mt-6">
-            <p className="eyebrow !text-[0.625rem] mb-2.5">Maridaje</p>
+            <p className="eyebrow !text-[0.6875rem] mb-2.5">Maridaje</p>
             <ul className="flex flex-wrap gap-2">
               {wine.pairings.map((p) => (
                 <li
@@ -120,18 +120,17 @@ function WineCard({ wine }: { wine: Wine }) {
           {/* Folio + ficha */}
           <div className="mt-7 flex items-end justify-between gap-3 border-t border-ink/10 pt-5">
             <div>
-              <p className="eyebrow !text-[0.625rem]">Serie limitada</p>
+              <p className="eyebrow !text-[0.6875rem]">Serie limitada</p>
               <p className="mt-1.5 font-display text-sm tracking-wide text-ink/85">
-                Botella N.º{' '}
-                <span className="text-muted">____</span> de{' '}
-                <span className="text-gold">{wine.folioTotal}</span>
+                <span className="text-gold-ink">{wine.folioTotal}</span> botellas numeradas
               </p>
             </div>
             <a
               href={wine.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group/link inline-flex cursor-pointer items-center gap-2 text-[0.78rem] font-medium uppercase tracking-[0.16em] text-ink transition-colors hover:text-terra"
+              aria-label={`Ver ficha de ${wine.name} ${wine.vintage} en MOG Selections (abre en una pestaña nueva)`}
+              className="group/link -my-3 inline-flex cursor-pointer items-center gap-2 py-3 text-[0.78rem] font-medium uppercase tracking-[0.16em] text-ink transition-colors hover:text-terra"
             >
               Ver ficha
               <span className="transition-transform duration-300 group-hover/link:translate-x-1">

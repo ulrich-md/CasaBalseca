@@ -1,5 +1,6 @@
-import { Monogram } from './ui/Monogram';
+import { Logo } from './ui/Logo';
 import { scrollToId } from '../lib/useLenis';
+import { MOG_URL, SOCIAL_LINKS } from '../data/contact';
 
 const NAV = [
   { label: 'Los vinos', href: '#los-vinos' },
@@ -8,36 +9,25 @@ const NAV = [
   { label: 'Dónde comprar', href: '#donde-comprar' },
 ];
 
-const SOCIAL = [
-  { label: 'Instagram', href: '#' },
-  { label: 'Facebook', href: '#' },
-  { label: 'Contacto', href: '#' },
-];
-
 export function Footer() {
   return (
-    <footer className="relative bg-ink text-paper">
+    <footer className="relative bg-ink text-paper" data-header-theme="dark">
       <div className="shell py-16 md:py-20">
         <div className="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr] md:gap-8">
           {/* Marca */}
           <div>
-            <div className="flex items-center gap-3">
-              <Monogram className="h-9 w-auto" color="var(--gold)" title="Casa Balseca" />
-              <span className="font-display text-base uppercase tracking-[0.22em]">
-                Casa Balseca
-              </span>
-            </div>
+            <Logo />
             <p className="mt-5 max-w-xs text-sm leading-relaxed text-paper/65">
               Vino tinto de Ribera del Duero en ediciones limitadas y numeradas.
             </p>
-            <p className="eyebrow mt-5 !text-gold/70">
+            <p className="eyebrow mt-5 !text-gold-light">
               Producto de España · Vino Tinto
             </p>
           </div>
 
           {/* Navegación */}
           <nav aria-label="Pie de página">
-            <p className="eyebrow !text-paper/40">Navegar</p>
+            <p className="eyebrow !text-paper/60">Navegar</p>
             <ul className="mt-4 space-y-2.5">
               {NAV.map((item) => (
                 <li key={item.href}>
@@ -47,7 +37,7 @@ export function Footer() {
                       e.preventDefault();
                       scrollToId(item.href);
                     }}
-                    className="link-underline cursor-pointer text-sm text-paper/70 transition-colors hover:text-gold"
+                    className="link-underline cursor-pointer text-sm text-paper/70 transition-colors hover:text-gold-light"
                   >
                     {item.label}
                   </a>
@@ -56,24 +46,37 @@ export function Footer() {
             </ul>
           </nav>
 
-          {/* Contacto / redes (placeholder) */}
+          {/* Redes / contacto: sólo los canales configurados en data/contact.ts */}
           <div>
-            <p className="eyebrow !text-paper/40">Síguenos</p>
-            <ul className="mt-4 space-y-2.5">
-              {SOCIAL.map((item) => (
-                <li key={item.label}>
-                  <a
-                    href={item.href}
-                    className="link-underline cursor-pointer text-sm text-paper/70 transition-colors hover:text-gold"
-                  >
-                    {item.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-            <p className="mt-5 text-sm text-paper/55">
+            <p className="eyebrow !text-paper/60">
+              {SOCIAL_LINKS.length > 0 ? 'Síguenos' : 'Distribución'}
+            </p>
+            {SOCIAL_LINKS.length > 0 && (
+              <ul className="mt-4 space-y-2.5">
+                {SOCIAL_LINKS.map((item) => (
+                  <li key={item.label}>
+                    <a
+                      href={item.href}
+                      target={item.href.startsWith('http') ? '_blank' : undefined}
+                      rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                      className="link-underline cursor-pointer text-sm text-paper/70 transition-colors hover:text-gold-light"
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
+            <p className={`${SOCIAL_LINKS.length > 0 ? 'mt-5' : 'mt-4'} text-sm text-paper/65`}>
               Distribuye{' '}
-              <span className="font-medium text-paper/80">MOG Selections</span>
+              <a
+                href={MOG_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="link-underline font-medium text-paper/85 transition-colors hover:text-gold-light"
+              >
+                MOG Selections
+              </a>
             </p>
           </div>
         </div>

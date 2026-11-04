@@ -35,6 +35,7 @@ src/
 ├── App.tsx                 # ensamblado + Lenis + MotionConfig (reduced-motion)
 ├── index.css               # tokens, base, componentes (botones, eyebrows, filetes)
 ├── data/wines.ts           # datos REALES de etiqueta (sin inventar nada)
+├── data/contact.ts         # WhatsApp / redes / email (vacío = oculto)
 ├── lib/
 │   ├── useLenis.ts             # smooth scroll + scrollToId
 │   ├── usePrefersReducedMotion.ts
@@ -61,8 +62,11 @@ src/
   - _Casa Balseca Roble_ — Añada 2015 · Ribera del Duero · D.O. · Vino Tinto ·
     serie de **17166** botellas.
 - Las únicas cifras afirmadas son reales (2 ediciones, folios 9210 / 17166,
-  24 meses). El número de botella concreto se deja como placeholder editable
-  `Botella N.º ____`.
+  24 meses). Las fichas muestran el tamaño de la serie ("9210 botellas
+  numeradas"), sin placeholders visibles.
+- **Contacto y redes:** se configuran en `src/data/contact.ts` (WhatsApp,
+  Instagram, Facebook, email). Los canales vacíos no se renderizan, así que
+  nunca se publica un enlace `href="#"`.
 
 ## Assets
 
