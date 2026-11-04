@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion, type Variants } from 'framer-motion';
 import { Bottle } from './ui/Bottle';
+import { BottleFigure } from './ui/BottleFigure';
 import { EntrySplash } from './ui/EntrySplash';
 import { BerberPattern } from './ui/BerberPattern';
 import { scrollToId } from '../lib/useLenis';
@@ -200,25 +201,24 @@ export function Hero({ ready = true }: { ready?: boolean }) {
                 play={ready}
                 className="absolute left-1/2 top-1/2 z-0 aspect-square h-[150%] -translate-x-1/2 -translate-y-1/2"
               />
-              {bottlePng ? (
-                <picture>
-                  <source srcSet={BOTTLE_WEBP} type="image/webp" />
-                  <img
-                    src={BOTTLE_PNG}
-                    alt="Casa Balseca Crianza 2014 — vino tinto de Ribera del Duero"
-                    onError={() => setBottlePng(false)}
-                    draggable={false}
-                    fetchPriority="high"
-                    className="relative z-10 h-[clamp(20rem,54vh,34rem)] w-auto object-contain drop-shadow-[0_38px_50px_rgba(62,17,23,0.34)]"
-                  />
-                </picture>
-              ) : (
-                <Bottle
-                  variant="crianza"
-                  className="relative z-10 h-[clamp(20rem,54vh,34rem)] w-auto drop-shadow-[0_38px_50px_rgba(62,17,23,0.34)]"
-                  title="Casa Balseca Crianza 2014"
+              <div className="relative z-10">
+                <BottleFigure
+                  png={BOTTLE_PNG}
+                  webp={BOTTLE_WEBP}
+                  alt="Casa Balseca Crianza 2014 — vino tinto de Ribera del Duero"
+                  sizeClassName="h-[clamp(20rem,54vh,34rem)]"
+                  eager
+                  fetchPriority="high"
+                  onFail={() => setBottlePng(false)}
+                  fallback={
+                    <Bottle
+                      variant="crianza"
+                      className="relative h-[clamp(20rem,54vh,34rem)] w-auto drop-shadow-[0_38px_50px_rgba(62,17,23,0.34)]"
+                      title="Casa Balseca Crianza 2014"
+                    />
+                  }
                 />
-              )}
+              </div>
               {/* Barrido de luz cálido sobre la botella */}
               {!reduced && (
                 <span className="pointer-events-none absolute inset-y-[8%] left-1/2 z-10 w-[40%] -translate-x-1/2 overflow-hidden">

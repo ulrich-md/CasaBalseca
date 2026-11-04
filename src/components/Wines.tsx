@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Bottle } from './ui/Bottle';
-import { SmartImage } from './ui/SmartImage';
+import { BottleFigure } from './ui/BottleFigure';
 import { Reveal } from './ui/Reveal';
 import { EyebrowDotted } from './ui/Eyebrow';
 import { wines, type Wine } from '../data/wines';
@@ -64,12 +64,17 @@ function WineCard({ wine }: { wine: Wine }) {
       <div className="grid grid-cols-1 gap-2 p-7 sm:grid-cols-[40%_60%] sm:gap-6 sm:p-9">
         {/* Botella sobre pedestal */}
         <div className="relative flex items-end justify-center">
-          <div className="pointer-events-none absolute bottom-6 h-32 w-32 rounded-full bg-[radial-gradient(circle,rgba(176,133,46,0.18),transparent_70%)] blur-xl" />
-          <SmartImage
-            src={BOTTLE_SRC[wine.id].png}
+          {/* Contraluz cálido detrás del hombro de la botella */}
+          <div className="pointer-events-none absolute left-1/2 top-[18%] h-52 w-52 -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(176,133,46,0.22),rgba(166,68,46,0.06)_55%,transparent_72%)] blur-2xl" />
+          {/* Superficie: banda de suelo muy sutil donde apoya la botella */}
+          <div className="pointer-events-none absolute inset-x-4 bottom-0 h-14 rounded-[50%] bg-[radial-gradient(closest-side,rgba(62,17,23,0.07),transparent)]" />
+          <BottleFigure
+            png={BOTTLE_SRC[wine.id].png}
             webp={BOTTLE_SRC[wine.id].webp}
             alt={`${wine.name} ${wine.vintage}`}
-            className="h-[19rem] w-auto object-contain drop-shadow-[0_24px_30px_rgba(62,17,23,0.28)] transition-transform duration-700 ease-power4 group-hover:-translate-y-1 sm:h-[22rem]"
+            sizeClassName="h-[19rem] sm:h-[22rem]"
+            liftClassName="transition-transform duration-700 ease-power4 group-hover:-translate-y-1.5"
+            groundClassName="group-hover:scale-x-90 group-hover:opacity-60"
             fallback={
               <Bottle
                 variant={wine.id}
