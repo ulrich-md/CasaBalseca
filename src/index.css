@@ -6,17 +6,18 @@
    CASA BALSECA — variables y base
    ============================================================ */
 :root {
-  --ivory: #f2e9d8;
-  --paper: #f7f0e2;
-  --ivory-2: #ecdfc9;
+  --ivory: #ede3d1;
+  --paper: #f2eadb;
+  --ivory-2: #e7d9c2;
+  --night: #160b0a;
   --burgundy: #5a1a22;
   --burgundy-deep: #3e1117;
   --terra: #a6442e;
   --gold: #b0852e;
-  --gold-ink: #80591a;
+  --gold-ink: #7a5418;
   --gold-light: #caa24c;
   --ink: #2a211c;
-  --muted: #6e6053;
+  --muted: #655749;
 }
 
 @layer base {
@@ -265,6 +266,17 @@
     background-image: url('/assets/textures/linen-grain.webp');
     background-size: 420px 420px;
     opacity: 0.7;
+  }
+
+  /* ----------------------------------------------------------
+     Luz de galería para las secciones claras: un foco cálido desde
+     arriba a la izquierda (la misma luz que proyecta las sombras de
+     las botellas) y los bordes cayendo suavemente a la sombra.
+     ---------------------------------------------------------- */
+  .lit {
+    background-image:
+      radial-gradient(80% 65% at 28% 0%, rgba(255, 246, 228, 0.5) 0%, transparent 60%),
+      radial-gradient(130% 100% at 45% 35%, transparent 45%, rgba(42, 20, 15, 0.24) 100%);
   }
 
   .shell {

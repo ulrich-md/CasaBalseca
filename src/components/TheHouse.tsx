@@ -9,7 +9,7 @@ const PHOTOS = {
 
 export function TheHouse() {
   return (
-    <section id="la-casa" className="tex tex-paper relative overflow-hidden bg-paper py-24 md:py-32">
+    <section id="la-casa" className="tex tex-paper lit relative overflow-hidden bg-paper py-24 md:py-32">
       <div className="hairline absolute inset-x-0 top-0" />
 
       <div className="shell relative grid gap-14 lg:grid-cols-[1fr_1.15fr] lg:items-center lg:gap-16">

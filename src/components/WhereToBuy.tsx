@@ -6,7 +6,7 @@ import { CONTACT } from '../data/contact';
 
 export function WhereToBuy() {
   return (
-    <section id="donde-comprar" className="tex tex-paper relative bg-ivory pb-24 pt-16 md:pb-28 md:pt-20">
+    <section id="donde-comprar" className="tex tex-paper lit relative bg-ivory pb-24 pt-16 md:pb-28 md:pt-20">
       <div className="shell">
         <div className="tex tex-burgundy relative overflow-hidden rounded-[6px] bg-gradient-to-br from-burgundy to-burgundy-deep px-6 py-16 text-center text-paper md:px-12 md:py-24">
           <BerberPattern className="absolute inset-0" color="#caa24c" opacity={0.08} tile={50} />

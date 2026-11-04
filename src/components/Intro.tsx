@@ -52,7 +52,7 @@ export function Intro({ onReveal, onDone }: IntroProps) {
 
   return (
     <motion.div
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-paper"
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-night"
       initial={{ y: 0 }}
       animate={leaving ? { y: '-100%' } : { y: 0 }}
       transition={{ duration: reduced ? 0.3 : 0.85, ease: [0.76, 0, 0.24, 1] }}
@@ -62,7 +62,7 @@ export function Intro({ onReveal, onDone }: IntroProps) {
       role="status"
       aria-label="Casa Balseca — cargando"
     >
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_90%_at_50%_40%,#fbf5ea_0%,#f4ecdb_60%,#ecdfc9_100%)]" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_55%_at_50%_45%,#2c1312_0%,#1c0d0c_55%,#160b0a_100%)]" />
 
       <motion.div
         className="relative flex flex-col items-center"
@@ -79,7 +79,7 @@ export function Intro({ onReveal, onDone }: IntroProps) {
         </motion.div>
 
         <motion.span
-          className="mt-6 font-display text-sm font-medium uppercase tracking-[0.34em] text-ink md:text-base"
+          className="mt-6 font-display text-sm font-medium uppercase tracking-[0.34em] text-paper md:text-base"
           initial={reduced ? false : { opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.7, delay: 0.25, ease: powerEase }}

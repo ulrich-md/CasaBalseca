@@ -17,7 +17,7 @@ const STATS: Stat[] = [
 
 export function Figures() {
   return (
-    <section id="en-cifras" className="tex tex-paper relative bg-ivory-2/70 py-20 md:py-24">
+    <section id="en-cifras" className="tex tex-paper lit relative bg-ivory-2/70 py-20 md:py-24">
       <div className="hairline absolute inset-x-0 top-0" />
       <div className="shell">
         <Reveal className="text-center">

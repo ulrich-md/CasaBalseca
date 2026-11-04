@@ -12,6 +12,8 @@ type BottleFigureProps = {
   groundClassName?: string;
   /** Sombra proyectada en el suelo (luz desde arriba a la izquierda). */
   castShadow?: boolean;
+  /** Contraluz: filo cálido que recorta la silueta sobre fondo oscuro. */
+  rim?: boolean;
   eager?: boolean;
   fetchPriority?: 'high' | 'low' | 'auto';
   /** Respaldo (SVG) si el asset no carga. */
@@ -34,6 +36,7 @@ export function BottleFigure({
   liftClassName = '',
   groundClassName = '',
   castShadow = true,
+  rim = false,
   eager = false,
   fetchPriority,
   fallback,
@@ -59,8 +62,11 @@ export function BottleFigure({
   // Sombras en capas: una corta y densa que "pega" la botella al fondo
   // y otras largas y cálidas que dan aire.
   const layered: CSSProperties = {
-    filter:
-      'drop-shadow(0 2px 2px rgba(30,10,10,0.28)) drop-shadow(0 14px 18px rgba(62,17,23,0.22)) drop-shadow(18px 34px 44px rgba(62,17,23,0.20))',
+    filter: rim
+      ? // Sobre oscuro: filos de luz a ambos lados (más intenso del lado del
+        // foco) + halo cálido muy abierto que separa el vidrio del fondo
+        'drop-shadow(-1px 0 0 rgba(255,228,186,0.55)) drop-shadow(1px 0 0 rgba(255,214,160,0.28)) drop-shadow(0 -1px 0 rgba(255,232,196,0.35)) drop-shadow(0 0 22px rgba(255,190,120,0.16)) drop-shadow(0 26px 30px rgba(0,0,0,0.55))'
+      : 'drop-shadow(0 2px 2px rgba(30,10,10,0.28)) drop-shadow(0 14px 18px rgba(62,17,23,0.22)) drop-shadow(18px 34px 44px rgba(62,17,23,0.20))',
   };
 
   return (

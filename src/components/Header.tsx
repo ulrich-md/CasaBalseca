@@ -128,7 +128,9 @@ export function Header() {
           open
             ? 'border-b border-transparent bg-transparent'
             : dark
-              ? 'border-b border-paper/10 bg-burgundy-deep/90 backdrop-blur-xl'
+              ? scrolled
+                ? 'border-b border-paper/10 bg-night/85 backdrop-blur-xl'
+                : 'border-b border-transparent bg-transparent'
               : scrolled
                 ? 'border-b border-ink/10 bg-ivory/95 backdrop-blur-xl supports-[backdrop-filter]:bg-ivory/90'
                 : 'border-b border-transparent bg-transparent'
@@ -221,7 +223,7 @@ export function Header() {
             className="tex tex-paper fixed inset-0 z-40 flex h-[100dvh] flex-col overflow-hidden bg-paper lg:hidden"
           >
             {/* Atmósfera: gradiente cálido + patrón bereber sutil */}
-            <div className="pointer-events-none absolute inset-0 -z-20 bg-[radial-gradient(120%_85%_at_50%_-5%,#fcf7ee_0%,#f7f0e2_52%,#eee0c7_100%)]" />
+            <div className="pointer-events-none absolute inset-0 -z-20 bg-[radial-gradient(120%_85%_at_50%_-5%,#f6efe3_0%,#f2eadb_52%,#e7d9c2_100%)]" />
             <div className="pointer-events-none absolute inset-0 -z-20 bg-[radial-gradient(55%_40%_at_85%_92%,rgba(166,68,46,0.09),transparent_65%)]" />
 
             <nav

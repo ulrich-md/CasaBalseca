@@ -10,18 +10,21 @@ export default {
   theme: {
     extend: {
       colors: {
-        ivory: '#F2E9D8',
-        paper: '#F7F0E2',
-        'ivory-2': '#ECDFC9',
+        // Marfil atenuado: luz de galería, sin casi-blancos que deslumbren
+        ivory: '#EDE3D1',
+        paper: '#F2EADB',
+        'ivory-2': '#E7D9C2',
+        // Penumbra cálida para escenas oscuras (hero, intro)
+        night: '#160B0A',
         burgundy: '#5A1A22',
         'burgundy-deep': '#3E1117',
         terra: '#A6442E',
         gold: '#B0852E',
         // Dorado para TEXTO: sobre claro (≥5:1) y sobre oscuro (≥5.4:1)
-        'gold-ink': '#80591A',
+        'gold-ink': '#7A5418',
         'gold-light': '#CAA24C',
         ink: '#2A211C',
-        muted: '#6E6053',
+        muted: '#655749',
       },
       fontFamily: {
         display: ['Fraunces', 'ui-serif', 'Georgia', 'serif'],
