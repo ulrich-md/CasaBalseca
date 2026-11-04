@@ -44,11 +44,7 @@ export function WhereToBuy() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={`Comprar ${wine.name} ${wine.vintage} en MOG Selections (abre en una pestaña nueva)`}
-                    className={`btn w-full sm:w-auto ${
-                      i === 0
-                        ? 'btn-terra'
-                        : 'btn-outline !border-paper/40 !text-paper hover:!border-gold-light hover:!text-gold-light'
-                    }`}
+                    className={`btn w-full sm:w-auto ${i === 0 ? 'btn-light' : 'btn-ghost-light'}`}
                   >
                     Comprar {wine.designation} {wine.vintage}
                   </a>

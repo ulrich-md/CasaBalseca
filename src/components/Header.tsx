@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Logo } from './ui/Logo';
-import { BerberPattern } from './ui/BerberPattern';
 import { scrollToId } from '../lib/useLenis';
 import { usePrefersReducedMotion } from '../lib/usePrefersReducedMotion';
 
@@ -147,7 +146,7 @@ export function Header() {
           </a>
 
           {/* Nav centro (desktop) */}
-          <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-9 lg:flex">
+          <nav aria-label="Principal" className="hidden items-center gap-10 lg:flex">
             {NAV.map((item) => {
               const isActive = active === item.href.slice(1);
               return (
@@ -156,7 +155,7 @@ export function Header() {
                   href={item.href}
                   onClick={(e) => onNavClick(e, item.href)}
                   aria-current={isActive ? 'true' : undefined}
-                  className={`group relative cursor-pointer text-[0.82rem] font-medium uppercase tracking-[0.16em] transition-colors duration-500 ${
+                  className={`group relative cursor-pointer text-[0.75rem] font-medium uppercase tracking-[0.2em] transition-colors duration-500 ${
                     dark
                       ? `hover:text-paper ${isActive ? 'text-paper' : 'text-paper/75'}`
                       : `hover:text-ink ${isActive ? 'text-ink' : 'text-ink/75'}`
@@ -164,7 +163,7 @@ export function Header() {
                 >
                   {item.label}
                   <span
-                    className={`absolute -bottom-1.5 left-0 h-px bg-terra transition-all duration-500 ease-power3 group-hover:w-full ${
+                    className={`absolute -bottom-1.5 left-0 h-px bg-current transition-all duration-500 ease-power3 group-hover:w-full ${
                       isActive ? 'w-full' : 'w-0'
                     }`}
                   />
@@ -172,21 +171,6 @@ export function Header() {
               );
             })}
           </nav>
-
-          {/* Sello MOG (desktop) */}
-          <div className="hidden items-center gap-2.5 lg:flex">
-            <span className={`eyebrow !text-[0.6875rem] ${dark ? '!text-paper/70' : ''}`}>
-              Distribuye
-            </span>
-            <span className={`h-3 w-px ${dark ? 'bg-paper/25' : 'bg-ink/20'}`} />
-            <span
-              className={`font-display text-sm tracking-wide transition-colors duration-500 ${
-                dark ? 'text-paper' : 'text-ink'
-              }`}
-            >
-              MOG Selections
-            </span>
-          </div>
 
           {/* Botón menú móvil */}
           <button
@@ -239,7 +223,6 @@ export function Header() {
             {/* Atmósfera: gradiente cálido + patrón bereber sutil */}
             <div className="pointer-events-none absolute inset-0 -z-20 bg-[radial-gradient(120%_85%_at_50%_-5%,#fcf7ee_0%,#f7f0e2_52%,#eee0c7_100%)]" />
             <div className="pointer-events-none absolute inset-0 -z-20 bg-[radial-gradient(55%_40%_at_85%_92%,rgba(166,68,46,0.09),transparent_65%)]" />
-            <BerberPattern className="absolute inset-0" opacity={0.045} tile={52} />
 
             <nav
               aria-label="Menú principal"
@@ -268,13 +251,13 @@ export function Header() {
                       </span>
                       <span
                         className={`font-display text-[2.1rem] font-light leading-none tracking-[-0.01em] ${
-                          isActive ? 'text-terra' : 'text-ink'
+                          isActive ? 'text-burgundy' : 'text-ink'
                         }`}
                       >
                         {item.label}
                       </span>
                       {isActive && (
-                        <span className="ml-auto h-1.5 w-1.5 rounded-full bg-terra" />
+                        <span className="ml-auto h-1.5 w-1.5 rounded-full bg-burgundy" />
                       )}
                     </motion.a>
                   </div>

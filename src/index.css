@@ -62,7 +62,7 @@
 
   /* Foco accesible y visible */
   :focus-visible {
-    outline: 2px solid var(--terra);
+    outline: 2px solid currentColor;
     outline-offset: 3px;
     border-radius: 2px;
   }
@@ -101,7 +101,7 @@
     font-weight: 400;
   }
 
-  /* Botones CTA */
+  /* Botones CTA: rectángulo, sin sombra ni saltos; sólo cambia el color */
   .btn {
     display: inline-flex;
     align-items: center;
@@ -109,54 +109,96 @@
     cursor: pointer;
     gap: 0.6rem;
     font-family: 'Inter', sans-serif;
-    font-size: 0.8125rem;
+    font-size: 0.75rem;
     font-weight: 500;
-    letter-spacing: 0.16em;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
     padding: 1.05rem 2rem;
-    border-radius: 999px;
-    transition: transform 0.45s cubic-bezier(0.165, 0.84, 0.44, 1),
-      background-color 0.45s ease, color 0.45s ease, border-color 0.45s ease,
-      box-shadow 0.45s ease;
-    will-change: transform;
+    border: 1px solid transparent;
+    border-radius: 0;
+    transition: background-color 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+      color 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+      border-color 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   }
+  /* Sobre claro */
   .btn-fill {
     background: var(--burgundy);
+    border-color: var(--burgundy);
     color: var(--paper);
-    box-shadow: 0 14px 30px -16px rgba(62, 17, 23, 0.7);
   }
   .btn-fill:hover {
     background: var(--burgundy-deep);
-    transform: translateY(-2px);
-    box-shadow: 0 20px 40px -16px rgba(62, 17, 23, 0.78);
+    border-color: var(--burgundy-deep);
   }
   .btn-outline {
     background: transparent;
     color: var(--ink);
-    border: 1px solid rgba(42, 33, 28, 0.32);
+    border-color: rgba(42, 33, 28, 0.45);
   }
   .btn-outline:hover {
-    border-color: var(--terra);
-    color: var(--terra);
-    transform: translateY(-2px);
-  }
-  .btn-terra {
-    background: var(--terra);
+    background: var(--ink);
+    border-color: var(--ink);
     color: var(--paper);
-    box-shadow: 0 14px 30px -16px rgba(166, 68, 46, 0.75);
   }
-  .btn-terra:hover {
-    background: #93371f;
-    transform: translateY(-2px);
+  /* Sobre burdeos */
+  .btn-light {
+    background: var(--paper);
+    border-color: var(--paper);
+    color: var(--burgundy-deep);
   }
-  .btn:focus-visible {
-    outline: 2px solid var(--terra);
-    outline-offset: 3px;
+  .btn-light:hover {
+    background: var(--ivory-2);
+    border-color: var(--ivory-2);
   }
-  /* Feedback de pulsación: respuesta rápida al presionar */
+  .btn-ghost-light {
+    background: transparent;
+    border-color: rgba(247, 240, 226, 0.45);
+    color: var(--paper);
+  }
+  .btn-ghost-light:hover {
+    background: var(--paper);
+    border-color: var(--paper);
+    color: var(--burgundy-deep);
+  }
   .btn:active {
-    transform: translateY(0) scale(0.97);
+    opacity: 0.85;
     transition-duration: 0.12s;
+  }
+  .btn-fill:focus-visible {
+    outline-color: var(--burgundy);
+  }
+  .btn-light:focus-visible,
+  .btn-ghost-light:focus-visible {
+    outline-color: var(--paper);
+  }
+
+  /* Enlace editorial: versalitas con filete que se intensifica al hover */
+  .link-cta {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-block: 0.85rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+  .link-cta::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0.45rem;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.3;
+    transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .link-cta:hover::after {
+    opacity: 1;
   }
 
   /* Link con subrayado que se dibuja al hover (footer, secundarios) */

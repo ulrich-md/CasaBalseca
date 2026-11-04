@@ -41,12 +41,6 @@ export default {
         power4: 'cubic-bezier(0.165, 0.84, 0.44, 1)',
       },
       keyframes: {
-        'sheen-sweep': {
-          '0%': { transform: 'translateX(-120%) skewX(-12deg)', opacity: '0' },
-          '15%': { opacity: '0.55' },
-          '60%': { opacity: '0.25' },
-          '100%': { transform: 'translateX(220%) skewX(-12deg)', opacity: '0' },
-        },
         'float-slow': {
           '0%, 100%': { transform: 'translateY(0px)' },
           '50%': { transform: 'translateY(-10px)' },
@@ -59,7 +53,6 @@ export default {
         },
       },
       animation: {
-        sheen: 'sheen-sweep 6.5s ease-in-out infinite',
         'float-slow': 'float-slow 7s ease-in-out infinite',
         'scroll-dot': 'scroll-dot 2.2s ease-in-out infinite',
       },

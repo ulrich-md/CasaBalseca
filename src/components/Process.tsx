@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react';
 import { Reveal } from './ui/Reveal';
-import { BerberPattern } from './ui/BerberPattern';
 import { loadGsap } from '../lib/scrollLibs';
 
 const STEPS = [
@@ -93,7 +92,6 @@ export function Process() {
       {/* Atmósfera */}
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(80%_60%_at_50%_-10%,rgba(166,68,46,0.22),transparent_60%)]" />
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(60%_50%_at_50%_120%,rgba(176,133,46,0.12),transparent_60%)]" />
-      <BerberPattern className="absolute inset-0" color="#caa24c" opacity={0.07} tile={54} />
 
       <div className="shell relative">
         {/* Encabezado */}
@@ -117,7 +115,7 @@ export function Process() {
         {/* Timeline desktop (horizontal) */}
         <div className="relative mt-20 hidden md:block">
           <div className="absolute left-[12.5%] right-[12.5%] top-[7px] h-px bg-paper/15">
-            <div className="process-fill h-full w-full origin-left scale-x-0 bg-gradient-to-r from-gold to-terra" />
+            <div className="process-fill h-full w-full origin-left scale-x-0 bg-gold" />
           </div>
           <ol className="grid grid-cols-4 gap-6">
             {STEPS.map((step, i) => (
@@ -140,7 +138,7 @@ export function Process() {
         {/* Timeline móvil (vertical) */}
         <div className="relative mt-14 md:hidden">
           <div className="absolute bottom-2 left-[7px] top-2 w-px bg-paper/15">
-            <div className="process-fill h-full w-full origin-top scale-y-0 bg-gradient-to-b from-gold to-terra" />
+            <div className="process-fill h-full w-full origin-top scale-y-0 bg-gold" />
           </div>
           <ol className="space-y-9">
             {STEPS.map((step, i) => (

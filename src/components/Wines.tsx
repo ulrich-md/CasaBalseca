@@ -2,7 +2,6 @@ import { motion } from 'framer-motion';
 import { Bottle } from './ui/Bottle';
 import { BottleFigure } from './ui/BottleFigure';
 import { Reveal } from './ui/Reveal';
-import { EyebrowDotted } from './ui/Eyebrow';
 import { wines, type Wine } from '../data/wines';
 import { fadeUp, staggerContainer, viewportOnce } from '../lib/motion';
 
@@ -41,7 +40,7 @@ export function Wines() {
           initial="hidden"
           whileInView="show"
           viewport={viewportOnce}
-          className="mt-16 grid gap-7 md:mt-20 md:grid-cols-2 md:gap-8"
+          className="mt-16 grid gap-16 md:mt-24 md:grid-cols-2 md:gap-0 md:divide-x md:divide-ink/10"
         >
           {wines.map((wine) => (
             <WineCard key={wine.id} wine={wine} />
@@ -53,98 +52,69 @@ export function Wines() {
 }
 
 function WineCard({ wine }: { wine: Wine }) {
+  // Ficha como una carta de vinos: sólo datos reales de etiqueta.
+  const specs = [
+    { k: 'Denominación', v: `${wine.region} · D.O.` },
+    { k: 'Tipo', v: wine.type },
+    { k: 'Serie', v: `${wine.folioTotal} botellas numeradas` },
+    { k: 'Maridaje', v: wine.pairings.join(' · ') },
+  ];
+
   return (
     <motion.article
       variants={fadeUp}
-      className="group relative flex flex-col overflow-hidden rounded-[4px] border border-ink/10 bg-gradient-to-b from-paper to-ivory-2/60 transition-all duration-500 ease-power4 hover:-translate-y-1.5 hover:border-gold/40 hover:shadow-[0_40px_70px_-40px_rgba(62,17,23,0.45)]"
+      className="relative flex flex-col items-center py-6 text-center md:px-10 lg:px-16"
     >
-      {/* Filete dorado superior que se dibuja al hover */}
-      <span className="absolute left-0 top-0 h-px w-0 bg-gold transition-all duration-700 ease-power3 group-hover:w-full" />
-
-      <div className="grid grid-cols-1 gap-2 p-7 sm:grid-cols-[40%_60%] sm:gap-6 sm:p-9">
-        {/* Botella sobre pedestal */}
-        <div className="relative flex items-end justify-center">
-          {/* Contraluz cálido detrás del hombro de la botella */}
-          <div className="pointer-events-none absolute left-1/2 top-[18%] h-52 w-52 -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(176,133,46,0.22),rgba(166,68,46,0.06)_55%,transparent_72%)] blur-2xl" />
-          {/* Superficie: banda de suelo muy sutil donde apoya la botella */}
-          <div className="pointer-events-none absolute inset-x-4 bottom-0 h-14 rounded-[50%] bg-[radial-gradient(closest-side,rgba(62,17,23,0.07),transparent)]" />
-          <BottleFigure
-            png={BOTTLE_SRC[wine.id].png}
-            webp={BOTTLE_SRC[wine.id].webp}
-            alt={`${wine.name} ${wine.vintage}`}
-            sizeClassName="h-[19rem] sm:h-[22rem]"
-            liftClassName="transition-transform duration-700 ease-power4 group-hover:-translate-y-1.5"
-            groundClassName="group-hover:scale-x-90 group-hover:opacity-60"
-            fallback={
-              <Bottle
-                variant={wine.id}
-                className="h-[19rem] w-auto transition-transform duration-700 ease-power4 group-hover:-translate-y-1 sm:h-[22rem]"
-                title={`${wine.name} ${wine.vintage}`}
-              />
-            }
-          />
-        </div>
-
-        {/* Detalles */}
-        <div className="flex flex-col">
-          <EyebrowDotted items={[wine.region, wine.type]} />
-
-          <div className="mt-3 flex items-baseline justify-between gap-3">
-            <h3 className="font-display text-[1.9rem] font-light leading-none tracking-[-0.01em] text-ink">
-              {wine.name.replace('Casa Balseca ', '')}
-            </h3>
-            <span className="font-display text-2xl italic text-gold-ink">
-              {wine.vintage}
-            </span>
-          </div>
-
-          <span className="mt-2 inline-flex w-fit items-center gap-2 text-[0.7rem] font-medium uppercase tracking-[0.2em] text-terra">
-            <span className="h-px w-5 bg-terra/60" />
-            {wine.note}
-          </span>
-
-          <p className="mt-5 text-base leading-relaxed text-muted text-pretty md:text-[0.92rem]">
-            {wine.tasting}
-          </p>
-
-          {/* Chips de maridaje */}
-          <div className="mt-6">
-            <p className="eyebrow !text-[0.6875rem] mb-2.5">Maridaje</p>
-            <ul className="flex flex-wrap gap-2">
-              {wine.pairings.map((p) => (
-                <li
-                  key={p}
-                  className="rounded-full border border-ink/15 bg-paper/70 px-3.5 py-1.5 text-xs font-medium tracking-wide text-ink/80"
-                >
-                  {p}
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Folio + ficha */}
-          <div className="mt-7 flex items-end justify-between gap-3 border-t border-ink/10 pt-5">
-            <div>
-              <p className="eyebrow !text-[0.6875rem]">Serie limitada</p>
-              <p className="mt-1.5 font-display text-sm tracking-wide text-ink/85">
-                <span className="text-gold-ink">{wine.folioTotal}</span> botellas numeradas
-              </p>
-            </div>
-            <a
-              href={wine.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={`Ver ficha de ${wine.name} ${wine.vintage} en MOG Selections (abre en una pestaña nueva)`}
-              className="group/link -my-3 inline-flex cursor-pointer items-center gap-2 py-3 text-[0.78rem] font-medium uppercase tracking-[0.16em] text-ink transition-colors hover:text-terra"
-            >
-              Ver ficha
-              <span className="transition-transform duration-300 group-hover/link:translate-x-1">
-                →
-              </span>
-            </a>
-          </div>
-        </div>
+      {/* Botella sin caja: escenario propio con contraluz y suelo */}
+      <div className="relative flex h-[23rem] w-full items-end justify-center sm:h-[27rem]">
+        <div className="pointer-events-none absolute left-1/2 top-[12%] h-60 w-60 -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(176,133,46,0.2),transparent_70%)] blur-2xl" />
+        <div className="pointer-events-none absolute bottom-0 left-1/2 h-12 w-72 -translate-x-1/2 rounded-[50%] bg-[radial-gradient(closest-side,rgba(62,17,23,0.08),transparent)]" />
+        <BottleFigure
+          png={BOTTLE_SRC[wine.id].png}
+          webp={BOTTLE_SRC[wine.id].webp}
+          alt={`${wine.name} ${wine.vintage}`}
+          sizeClassName="h-[21rem] sm:h-[25rem]"
+          fallback={
+            <Bottle
+              variant={wine.id}
+              className="h-[21rem] w-auto sm:h-[25rem]"
+              title={`${wine.name} ${wine.vintage}`}
+            />
+          }
+        />
       </div>
+
+      <h3 className="mt-12 font-display text-[2.6rem] font-light leading-none tracking-[-0.015em] text-ink">
+        {wine.name.replace('Casa Balseca ', '')}
+      </h3>
+      <p className="mt-3 font-display text-lg italic text-gold-ink">Añada {wine.vintage}</p>
+
+      {/* flex-1: la nota más corta absorbe el hueco y las dos tablas quedan alineadas */}
+      <p className="mx-auto mt-6 max-w-sm text-base leading-relaxed text-muted text-pretty md:flex-1">
+        {wine.tasting}
+      </p>
+
+      <dl className="mt-9 w-full max-w-sm border-t border-ink/15 text-left">
+        {specs.map((row) => (
+          <div
+            key={row.k}
+            className="flex items-baseline justify-between gap-6 border-b border-ink/15 py-3.5"
+          >
+            <dt className="eyebrow !text-[0.6875rem] shrink-0">{row.k}</dt>
+            <dd className="text-right font-display text-[0.95rem] text-ink/85">{row.v}</dd>
+          </div>
+        ))}
+      </dl>
+
+      <a
+        href={wine.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={`Ver ficha de ${wine.name} ${wine.vintage} en MOG Selections (abre en una pestaña nueva)`}
+        className="link-cta mt-7 text-ink"
+      >
+        Ver ficha
+      </a>
     </motion.article>
   );
 }

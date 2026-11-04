@@ -1,5 +1,4 @@
 import { Reveal, RevealGroup, RevealItem } from './ui/Reveal';
-import { BerberPattern } from './ui/BerberPattern';
 
 // Fotos reales de marca para el collage de "La casa".
 const PHOTOS = {
@@ -11,7 +10,6 @@ const PHOTOS = {
 export function TheHouse() {
   return (
     <section id="la-casa" className="tex tex-paper relative overflow-hidden bg-paper py-24 md:py-32">
-      <BerberPattern className="absolute inset-0" opacity={0.045} tile={56} />
       <div className="hairline absolute inset-x-0 top-0" />
 
       <div className="shell relative grid gap-14 lg:grid-cols-[1fr_1.15fr] lg:items-center lg:gap-16">

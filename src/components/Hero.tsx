@@ -3,7 +3,6 @@ import { motion, type Variants } from 'framer-motion';
 import { Bottle } from './ui/Bottle';
 import { BottleFigure } from './ui/BottleFigure';
 import { EntrySplash } from './ui/EntrySplash';
-import { BerberPattern } from './ui/BerberPattern';
 import { scrollToId } from '../lib/useLenis';
 import { loadGsap } from '../lib/scrollLibs';
 import { usePrefersReducedMotion } from '../lib/usePrefersReducedMotion';
@@ -71,18 +70,6 @@ export function Hero({ ready = true }: { ready?: boolean }) {
       <div className="pointer-events-none absolute inset-0 -z-30 bg-[radial-gradient(55%_45%_at_80%_28%,rgba(166,68,46,0.12),transparent_60%)]" />
       <div className="pointer-events-none absolute inset-0 -z-30 bg-[radial-gradient(45%_38%_at_16%_72%,rgba(90,26,34,0.10),transparent_60%)]" />
       <div className="pointer-events-none absolute inset-0 -z-30 shadow-[inset_0_-120px_140px_-90px_rgba(62,17,23,0.35)]" />
-      <BerberPattern className="absolute inset-0 -z-30" opacity={0.05} tile={52} />
-
-      {/* Líneas finas fluidas decorativas */}
-      <svg
-        className="pointer-events-none absolute inset-0 -z-20 h-full w-full"
-        viewBox="0 0 1440 900"
-        preserveAspectRatio="xMidYMid slice"
-        aria-hidden="true"
-      >
-        <path d="M-50 250 C 320 150, 520 370, 760 310 S 1240 130, 1520 290" fill="none" stroke="rgba(176,133,46,0.22)" strokeWidth="1" />
-        <path d="M-50 670 C 300 730, 560 550, 820 630 S 1280 770, 1520 610" fill="none" stroke="rgba(176,133,46,0.15)" strokeWidth="1" />
-      </svg>
 
       {/* Palabra fantasma gigante */}
       <div
@@ -209,7 +196,7 @@ export function Hero({ ready = true }: { ready?: boolean }) {
               <EntrySplash
                 variant="back"
                 play={ready}
-                className="absolute left-1/2 top-1/2 z-0 aspect-square h-[150%] -translate-x-1/2 -translate-y-1/2"
+                className="absolute left-1/2 top-1/2 z-0 aspect-square h-[150%] -translate-x-1/2 -translate-y-1/2 opacity-60"
               />
               <div className="relative z-10">
                 <BottleFigure
@@ -229,18 +216,6 @@ export function Hero({ ready = true }: { ready?: boolean }) {
                   }
                 />
               </div>
-              {/* Barrido de luz cálido sobre la botella */}
-              {!reduced && (
-                <span className="pointer-events-none absolute inset-y-[8%] left-1/2 z-10 w-[40%] -translate-x-1/2 overflow-hidden">
-                  <span className="absolute inset-y-0 -left-1/3 w-1/3 -skew-x-12 bg-gradient-to-r from-transparent via-white/35 to-transparent animate-sheen" />
-                </span>
-              )}
-              {/* Gotas en primer plano — delante de la botella */}
-              <EntrySplash
-                variant="front"
-                play={ready}
-                className="pointer-events-none absolute left-1/2 top-1/2 z-20 aspect-square h-[150%] -translate-x-1/2 -translate-y-1/2"
-              />
             </div>
 
             {/* Reflejo en el suelo (solo con la foto real) */}
@@ -272,7 +247,7 @@ export function Hero({ ready = true }: { ready?: boolean }) {
       >
         <span className="eyebrow !text-[0.6875rem]">Scroll</span>
         <span className="relative flex h-9 w-5 justify-center rounded-full border border-ink/25">
-          <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-terra animate-scroll-dot" />
+          <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-ink/60 animate-scroll-dot" />
         </span>
       </a>
     </section>
