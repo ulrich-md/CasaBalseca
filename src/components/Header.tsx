@@ -234,11 +234,11 @@ export function Header() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0, transition: { duration: 0.28, ease: 'easeIn' } }}
             transition={{ duration: 0.35, ease: 'easeOut' }}
-            className="fixed inset-0 z-40 flex h-[100dvh] flex-col overflow-hidden bg-paper lg:hidden"
+            className="tex tex-paper fixed inset-0 z-40 flex h-[100dvh] flex-col overflow-hidden bg-paper lg:hidden"
           >
             {/* Atmósfera: gradiente cálido + patrón bereber sutil */}
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_85%_at_50%_-5%,#fcf7ee_0%,#f7f0e2_52%,#eee0c7_100%)]" />
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(55%_40%_at_85%_92%,rgba(166,68,46,0.09),transparent_65%)]" />
+            <div className="pointer-events-none absolute inset-0 -z-20 bg-[radial-gradient(120%_85%_at_50%_-5%,#fcf7ee_0%,#f7f0e2_52%,#eee0c7_100%)]" />
+            <div className="pointer-events-none absolute inset-0 -z-20 bg-[radial-gradient(55%_40%_at_85%_92%,rgba(166,68,46,0.09),transparent_65%)]" />
             <BerberPattern className="absolute inset-0" opacity={0.045} tile={52} />
 
             <nav

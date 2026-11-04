@@ -64,7 +64,7 @@ export function Hero({ ready = true }: { ready?: boolean }) {
     <section
       id="inicio"
       ref={sectionRef}
-      className="relative isolate flex min-h-[100svh] flex-col items-center overflow-hidden px-6 pb-10 pt-28 md:pt-32"
+      className="tex tex-paper relative isolate flex min-h-[100svh] flex-col items-center overflow-hidden px-6 pb-10 pt-28 md:pt-32"
     >
       {/* Fondo: crema con gradientes cálidos + viñeta para dar profundidad */}
       <div className="pointer-events-none absolute inset-0 -z-30 bg-[radial-gradient(125%_90%_at_50%_-10%,#fcf7ee_0%,#f4ecdb_45%,#e9dcc4_100%)]" />
@@ -194,6 +194,16 @@ export function Hero({ ready = true }: { ready?: boolean }) {
             transition={{ duration: 1, ease: powerEase, delay: 0.15 }}
             className="relative flex flex-col items-center"
           >
+            {/* Suelo de piedra: el horizonte (≈45 % de la foto) coincide con la
+                base de la botella; se funde hacia arriba con el fondo */}
+            <img
+              src="/assets/textures/stone-floor.webp"
+              alt=""
+              aria-hidden="true"
+              draggable={false}
+              decoding="async"
+              className="pointer-events-none absolute left-1/2 top-[clamp(20rem,54vh,34rem)] -z-10 w-[max(100vw,900px)] max-w-none -translate-x-1/2 -translate-y-[47%] select-none [mask-image:linear-gradient(to_bottom,transparent_0%,rgba(0,0,0,0.55)_32%,#000_50%,#000_78%,transparent_100%)]"
+            />
             <div className="relative">
               {/* Splash de vino al cargar — estallido detrás de la botella */}
               <EntrySplash

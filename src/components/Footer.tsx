@@ -11,7 +11,7 @@ const NAV = [
 
 export function Footer() {
   return (
-    <footer className="relative bg-ink text-paper" data-header-theme="dark">
+    <footer className="tex tex-linen relative bg-ink text-paper" data-header-theme="dark">
       <div className="shell py-16 md:py-20">
         <div className="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr] md:gap-8">
           {/* Marca */}

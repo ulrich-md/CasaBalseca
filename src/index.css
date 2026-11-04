@@ -190,6 +190,41 @@
     );
   }
 
+  /* ----------------------------------------------------------
+     Texturas de material (papel, burdeos, lino).
+     Son mapas de relieve neutros (gris 50 %): con hard-light sólo
+     añaden fibra y grano, sin alterar los colores de marca. La capa
+     va en z-index:-1 dentro de un contexto aislado: queda sobre el
+     fondo de la sección y debajo de todo su contenido.
+     ---------------------------------------------------------- */
+  .tex {
+    isolation: isolate;
+  }
+  .tex::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    border-radius: inherit;
+    background-repeat: repeat;
+    background-size: 480px 480px;
+    mix-blend-mode: hard-light;
+  }
+  .tex-paper::before {
+    background-image: url('/assets/textures/paper-grain.webp');
+    opacity: 0.38;
+  }
+  .tex-burgundy::before {
+    background-image: url('/assets/textures/burgundy-grain.webp');
+    opacity: 0.6;
+  }
+  .tex-linen::before {
+    background-image: url('/assets/textures/linen-grain.webp');
+    background-size: 420px 420px;
+    opacity: 0.7;
+  }
+
   .shell {
     width: 100%;
     max-width: 1320px;

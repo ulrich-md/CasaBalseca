@@ -81,6 +81,16 @@ Para usar los archivos oficiales, coloca los PNG/JPG en `public/assets/` y busca
 los comentarios `// REEMPLAZAR:` en `src/components/` (logo, botellas y fotos de
 "La casa"). Detalles y URLs originales en [`public/assets/README.md`](public/assets/README.md).
 
+### Texturas (`public/assets/textures/`)
+
+- `paper-grain`, `burgundy-grain`, `linen-grain`: mapas de relieve **neutros**
+  (gris 50 %, sin juntas, 720 px) derivados de las texturas de papel, burdeos y
+  lino. Se aplican con las clases `.tex .tex-paper | .tex-burgundy | .tex-linen`
+  (`src/index.css`) en modo `hard-light`: añaden fibra sin alterar los colores de
+  marca ni los contrastes. Para ajustar intensidad, cambia su `opacity`.
+- `stone-floor`: suelo de caliza bajo la botella del hero; su horizonte (≈45 %)
+  coincide con la base de la botella.
+
 ## Accesibilidad y movimiento
 
 - 100% responsive (mobile-first), HTML semántico, foco visible, skip-link.

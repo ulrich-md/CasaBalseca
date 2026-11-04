@@ -10,7 +10,7 @@ const PHOTOS = {
 
 export function TheHouse() {
   return (
-    <section id="la-casa" className="relative overflow-hidden bg-paper py-24 md:py-32">
+    <section id="la-casa" className="tex tex-paper relative overflow-hidden bg-paper py-24 md:py-32">
       <BerberPattern className="absolute inset-0" opacity={0.045} tile={56} />
       <div className="hairline absolute inset-x-0 top-0" />
 

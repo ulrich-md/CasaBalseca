@@ -88,7 +88,7 @@ export function Process() {
       id="el-proceso"
       ref={sectionRef}
       data-header-theme="dark"
-      className="relative overflow-hidden bg-burgundy-deep py-24 text-paper md:py-32"
+      className="tex tex-burgundy relative overflow-hidden bg-burgundy-deep py-24 text-paper md:py-32"
     >
       {/* Atmósfera */}
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(80%_60%_at_50%_-10%,rgba(166,68,46,0.22),transparent_60%)]" />

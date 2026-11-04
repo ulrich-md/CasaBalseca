@@ -14,7 +14,7 @@ const BOTTLE_SRC: Record<Wine['id'], { png: string; webp: string }> = {
 
 export function Wines() {
   return (
-    <section id="los-vinos" className="relative bg-ivory py-24 md:py-32">
+    <section id="los-vinos" className="tex tex-paper relative bg-ivory py-24 md:py-32">
       <div className="shell">
         {/* Encabezado */}
         <div className="mx-auto max-w-2xl text-center">
