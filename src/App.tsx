@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { MotionConfig } from 'framer-motion';
+import { Analytics } from '@vercel/analytics/react';
 import { Intro } from './components/Intro';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
@@ -75,6 +76,7 @@ export default function App() {
         <WhereToBuy />
       </main>
       <Footer />
+      <Analytics />
     </MotionConfig>
   );
 }
